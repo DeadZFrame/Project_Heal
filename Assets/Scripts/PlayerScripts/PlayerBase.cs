@@ -26,7 +26,7 @@ public class PlayerBase : MonoBehaviour
     {
         if (collision.transform.parent != null)
         {
-            if (collision.transform.parent.tag.Equals("Ground"))
+            if (collision.transform.parent.tag.Equals("Ground") || collision.transform.tag.Equals("Ground"))    
             {
                 var colID = collision.gameObject.name;
                 _cameraBase.floor = GameObject.Find(colID).GetComponent<Transform>();
