@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Security.Cryptography;
 using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,11 +12,13 @@ public class PlayerBase : MonoBehaviour
 
     private CameraBase _cameraBase;
     private InventoryManager _ınventoryManager;
-    
+    private InventorySlot _ınventorySlot;
+
     [System.NonSerialized]public Collider ıtem;
 
     private void Awake()
     {
+        _ınventorySlot = FindObjectOfType<InventorySlot>();
         _rb = GetComponent<Rigidbody>();
         _cameraBase = GameObject.Find("Main Camera").GetComponent<CameraBase>();
         _ınventoryManager = GameObject.Find("InventoryUI").GetComponent<InventoryManager>();
@@ -57,8 +60,10 @@ public class PlayerBase : MonoBehaviour
             }
             else
             {
+                Destroy(other.gameObject.GetComponent<ItemWorld>());
                 _ınventoryManager.AddItem();
-                Destroy(other.gameObject);
+                _ınventorySlot.ToText();
+                other.gameObject.SetActive(false);
             }
         }
     }

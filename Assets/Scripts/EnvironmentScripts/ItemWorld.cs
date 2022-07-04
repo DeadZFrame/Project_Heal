@@ -14,12 +14,12 @@ public class ItemWorld : MonoBehaviour
     private void FixedUpdate()
     {
         StartCoroutine(DelayMagnet());
-        var speed = 0.1f * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, _player.position, speed + 0.01f);
     }
     
     IEnumerator DelayMagnet()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(0.5f);
+        var speed = 0.1f * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, _player.position, speed + 30f * Time.deltaTime);
     }
 }

@@ -18,7 +18,7 @@ public class InventoryManager : MonoBehaviour
 
     private PlayerBase _playerBase;
 
-    private bool _isEmpty = true;
+    private bool _isEmpty = true, _isSame = false;
 
     private void Awake()
     {
@@ -48,25 +48,32 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                Instantiate(_slotIcon, gameObject.transform.parent.position, quaternion.identity);
-                _slots = GameObject.FindGameObjectsWithTag("Slot");
-                foreach (var slot in _slots)
+                ItemClassifier();
+                if (!_isSame)
                 {
-                    UnityEditor.GameObjectUtility.SetParentAndAlign(slot, gameObject);
-                    
-                    var _slot = slot.GetComponent<InventorySlot>();
-                    if (_slot.slotClass == null)
+                    Instantiate(_slotIcon, gameObject.transform.parent.position, quaternion.identity);
+                    _slots = GameObject.FindGameObjectsWithTag("Slot");
+                    foreach (var slot in _slots)
                     {
-                        _slot.slotClass = _playerBase.ıtem.name;
-                        _slot.ıtemCount += 1;
-                        foreach (var key in _keyCodes)
+                        UnityEditor.GameObjectUtility.SetParentAndAlign(slot, gameObject);
+                        
+                        var _slot = slot.GetComponent<InventorySlot>();
+                        if (_slot.slotClass == null)
                         {
-                            _slot.keyCode = key;
-                            _keyCodes.Remove(key);
+                            _slot.slotClass = _playerBase.ıtem.name;
+                            _slot.ıtemCount += 1;
+                            foreach (var key in _keyCodes)
+                            {
+                                _slot.keyCode = key;
+                                _keyCodes.Remove(key);
+                                break;
+                            }
                         }
                     }
                 }
+                
             }
+            _isSame = false;
             ıtems.Add(_playerBase.ıtem.gameObject);
         }
     }
@@ -77,6 +84,8 @@ public class InventoryManager : MonoBehaviour
         {
             if (_playerBase.ıtem.name.Equals(ıtem.name))
             {
+                _isSame = true;
+                _slots = GameObject.FindGameObjectsWithTag("Slot");
                 foreach (var slot in _slots)
                 {
                     var _slot = slot.GetComponent<InventorySlot>();
