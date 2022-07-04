@@ -13,24 +13,25 @@ public class InventorySlot : MonoBehaviour
     
     private TextMeshProUGUI _text;
 
-    private static InventorySlot _ınventorySlot;
+    public static List<InventorySlot> slots;
+    public static InventorySlot slot;
 
     private void Awake()
     {
-        _ınventorySlot = this;
+        slot = this;
         _text = gameObject.GetComponentInChildren<TextMeshProUGUI>();
     }
     
     public void ToText()
     {
-        _text.SetText(_ınventorySlot.slotClass + " " + _ınventorySlot.ıtemCount.ToString());
+        _text.SetText(slot.slotClass + " " + slot.ıtemCount.ToString());
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(keyCode))
+        if (Input.GetKeyDown(slot.keyCode))
         {
-            Debug.LogError("You have Selected " + _ınventorySlot.slotClass);
+            Debug.LogError("You have Selected " + slot.slotClass);
         }
     }
 }

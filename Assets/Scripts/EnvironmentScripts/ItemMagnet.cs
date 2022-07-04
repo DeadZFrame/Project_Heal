@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ItemWorld : MonoBehaviour
+public class ItemMagnet : MonoBehaviour
 {
     private Transform _player;
     private Vector3 _velocity = Vector3.zero;

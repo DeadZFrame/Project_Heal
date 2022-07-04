@@ -12,13 +12,15 @@ public class PlayerBase : MonoBehaviour
 
     private CameraBase _cameraBase;
     private InventoryManager _ınventoryManager;
-    private InventorySlot _ınventorySlot;
+    private RigidbodyManager _rigidbodyManager;
 
     [System.NonSerialized]public Collider ıtem;
 
+    private bool grounded = false;
+
     private void Awake()
     {
-        _ınventorySlot = FindObjectOfType<InventorySlot>();
+        _rigidbodyManager = GameObject.Find("TABLE_BREAKABLE").GetComponent<RigidbodyManager>();
         _rb = GetComponent<Rigidbody>();
         _cameraBase = GameObject.Find("Main Camera").GetComponent<CameraBase>();
         _ınventoryManager = GameObject.Find("InventoryUI").GetComponent<InventoryManager>();
@@ -37,6 +39,7 @@ public class PlayerBase : MonoBehaviour
             {
                 var colID = collision.gameObject.name;
                 _cameraBase.floor = GameObject.Find(colID).GetComponent<Transform>();
+                grounded = true;
             }
         }
         else
@@ -45,6 +48,15 @@ public class PlayerBase : MonoBehaviour
             {
                 var colID = collision.gameObject.name;
                 _cameraBase.floor = GameObject.Find(colID).GetComponent<Transform>();
+                grounded = true;
+            }
+        }
+
+        if (collision.transform.tag.Equals("EnvObjects"))
+        {
+            foreach (var obj in _rigidbodyManager.objects)
+            {
+                obj.constraints = RigidbodyConstraints.None;
             }
         }
     }
@@ -62,7 +74,7 @@ public class PlayerBase : MonoBehaviour
             {
                 Destroy(other.gameObject.GetComponent<ItemWorld>());
                 _ınventoryManager.AddItem();
-                _ınventorySlot.ToText();
+                InventorySlot.slot.ToText();
                 other.gameObject.SetActive(false);
             }
         }
@@ -84,6 +96,16 @@ public class PlayerBase : MonoBehaviour
 
         _rb.MovePosition(newPos);
 
+        Jump();
         transform.rotation = Quaternion.LookRotation(vectorInput);
+    }
+
+    private void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            _rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            grounded = false;
+        }
     }
 }
