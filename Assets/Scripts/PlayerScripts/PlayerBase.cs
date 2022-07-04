@@ -12,7 +12,7 @@ public class PlayerBase : MonoBehaviour
     private CameraBase _cameraBase;
     private InventoryManager _ınventoryManager;
     
-    public Collider ıtem;
+    [System.NonSerialized]public Collider ıtem;
 
     private void Awake()
     {
@@ -57,9 +57,8 @@ public class PlayerBase : MonoBehaviour
             }
             else
             {
-                Destroy(other.gameObject.GetComponent<ItemWorld>());
                 _ınventoryManager.AddItem();
-                other.gameObject.SetActive(false);
+                Destroy(other.gameObject);
             }
         }
     }
