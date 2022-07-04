@@ -1,5 +1,7 @@
 using System;
-using UnityEditor.AssetImporters;
+using System.Collections;
+using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
@@ -8,13 +10,15 @@ public class PlayerBase : MonoBehaviour
     private Rigidbody _rb;
 
     private CameraBase _cameraBase;
+    private InventoryManager _ınventoryManager;
     
-    public Collider item;
+    public Collider ıtem;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _cameraBase = GameObject.Find("Main Camera").GetComponent<CameraBase>();
+        _ınventoryManager = GameObject.Find("InventoryUI").GetComponent<InventoryManager>();
     }
 
     private void FixedUpdate()
@@ -40,18 +44,23 @@ public class PlayerBase : MonoBehaviour
                 _cameraBase.floor = GameObject.Find(colID).GetComponent<Transform>();
             }
         }
-
-        if (collision.transform.tag.Equals("Item"))
-        {
-            collision.gameObject.SetActive(false);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("Item"))
+        if (other.transform.tag.Equals("Item"))
         {
-            item = other;
+            if (other.gameObject.GetComponent<ItemWorld>() == null)
+            {
+                ıtem = other;
+                ıtem.gameObject.AddComponent<ItemWorld>();
+            }
+            else
+            {
+                Destroy(other.gameObject.GetComponent<ItemWorld>());
+                _ınventoryManager.AddItem();
+                other.gameObject.SetActive(false);
+            }
         }
     }
 

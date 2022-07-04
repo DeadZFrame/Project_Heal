@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemWorld : MonoBehaviour
@@ -15,7 +13,13 @@ public class ItemWorld : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 smooth = Vector3.SmoothDamp(gameObject.transform.position, _player.position, ref _velocity, 0.75f);
-        gameObject.transform.position = smooth;
+        StartCoroutine(DelayMagnet());
+        var speed = 0.1f * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, _player.position, speed + 0.01f);
+    }
+    
+    IEnumerator DelayMagnet()
+    {
+        yield return new WaitForSeconds(5f);
     }
 }

@@ -3,23 +3,23 @@ using UnityEngine;
 
 public class ItemMagnet : MonoBehaviour
 {
-    private List<GameObject> items = new List<GameObject>();
+    private List<GameObject> _ıtems = new List<GameObject>();
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Item"))
         {
-            items.Add(other.gameObject);
+            _ıtems.Add(other.gameObject);
         }
         Magnet();
     }
 
     private void Magnet()
     {
-        for (int i = 0; i < items.Count; i++)
+        foreach (var ıtem in _ıtems)
         {
-            if(items[i].gameObject.GetComponent<ItemWorld>() == null)
-                items[i].gameObject.AddComponent<ItemWorld>();
+            if(ıtem.gameObject.GetComponent<ItemWorld>() == null)
+                ıtem.gameObject.AddComponent<ItemWorld>();
         }
     }
 }
