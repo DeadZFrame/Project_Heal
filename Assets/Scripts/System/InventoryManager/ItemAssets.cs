@@ -15,4 +15,5 @@ public class ItemAssets : MonoBehaviour
     public Transform materialWorld;
     
     public GameObject[] materials;
+    public Sprite[] sprites;
 }

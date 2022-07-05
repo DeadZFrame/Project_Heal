@@ -29,7 +29,7 @@ public class ItemWorld : MonoBehaviour
         _trans = GetComponent<Transform>();
     }
 
-    public void SetItem(Item ıtem)
+    private void SetItem(Item ıtem)
     {
         this._ıtem = ıtem;
         _meshFilter.sharedMesh = ıtem.GetGameObject().GetComponent<MeshFilter>().sharedMesh;

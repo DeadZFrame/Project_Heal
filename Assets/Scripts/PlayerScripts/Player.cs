@@ -1,9 +1,3 @@
-using System;
-using System.Collections;
-using System.Security.Cryptography;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -20,7 +14,10 @@ public class Player : MonoBehaviour
         _playerBase = gameObject.GetComponent<PlayerBase>();
         _rigidbodyManager = GameObject.FindGameObjectWithTag("EnvObjects").GetComponent<RigidbodyManager>();
         _cameraBase = GameObject.Find("Main Camera").GetComponent<CameraBase>();
-        
+    }
+
+    private void Start()
+    {
         _ınventory = new Inventory();
         ınventoryUI.SetInventory(_ınventory);
     }
@@ -48,8 +45,18 @@ public class Player : MonoBehaviour
 
         if (collision.transform.parent.tag.Equals("EnvObjects"))
         {
+            bool broke = false;
             foreach (var obj in _rigidbodyManager.objects)
             {
+                if (obj.constraints == RigidbodyConstraints.FreezeAll)
+                {
+                    if (!broke)
+                    {
+                        var parent = collision.transform.GetComponentInParent<Transform>().position;
+                        ItemWorld.SpawnItemWorld(new Vector3(parent.x, parent.y, 1.5f), new Item{ıtemTypes = Item.ItemTypes.Plank, amount = 1});   
+                    }
+                    broke = true;
+                }
                 obj.constraints = RigidbodyConstraints.None;
             }
         }
