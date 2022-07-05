@@ -6,7 +6,6 @@
 Assets/AssetStoreTools*
 /[Ll]ogs/
 /[Mm]emoryCaptures/
-git rm --cached UserSettings/Layouts/default-2021.dwlt
 
 # Visual Studio cache directory
 .vs/
