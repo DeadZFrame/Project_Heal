@@ -66,11 +66,19 @@ public class Player : MonoBehaviour
     {
         if (other.tag.Equals("Item"))
         {
-            ItemWorld ıtemWorld = other.GetComponent<ItemWorld>();
-            if (ıtemWorld != null)
+            ItemMagnet ıtemMagnet = other.gameObject.GetComponent<ItemMagnet>();
+            if (ıtemMagnet.enabled)
             {
-                _ınventory.AddItem(ıtemWorld.GetItem());
-                ıtemWorld.DestroySelf();
+                ItemWorld ıtemWorld = other.GetComponent<ItemWorld>();
+                if (ıtemWorld != null)
+                {
+                    _ınventory.AddItem(ıtemWorld.GetItem());
+                    ıtemWorld.DestroySelf();
+                }
+            }
+            else
+            {
+                ıtemMagnet.enabled = true;
             }
         }
     }
