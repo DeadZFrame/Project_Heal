@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    /*
     public List<GameObject> ıtems;
     private List<KeyCode> _keyCodes;
     private GameObject[] _slots;
@@ -98,4 +99,5 @@ public class InventoryManager : MonoBehaviour
         }
         
     }
+    */
 }

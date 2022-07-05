@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ItemWorld : MonoBehaviour
@@ -22,20 +23,30 @@ public class ItemWorld : MonoBehaviour
 
     private void Awake()
     {
+        _coll = GetComponent<BoxCollider>();
         _meshFilter = GetComponent<MeshFilter>();
         _meshRenderer = GetComponent<MeshRenderer>();
-        _coll = GetComponent<BoxCollider>();
         _trans = GetComponent<Transform>();
     }
 
-    public void SetItem(Item item)
+    public void SetItem(Item ıtem)
     {
-        this._ıtem = item;
-        _meshFilter.sharedMesh = item.GetGameObject().GetComponent<MeshFilter>().sharedMesh;
-        _meshRenderer.sharedMaterials = item.GetGameObject().GetComponent<MeshRenderer>().sharedMaterials;
-        _trans.localScale = item.GetGameObject().GetComponent<Transform>().localScale;
-        _trans.rotation = item.GetGameObject().GetComponent<Transform>().rotation;
-        _coll.size = item.GetGameObject().GetComponent<BoxCollider>().size;
+        this._ıtem = ıtem;
+        _meshFilter.sharedMesh = ıtem.GetGameObject().GetComponent<MeshFilter>().sharedMesh;
+        _meshRenderer.sharedMaterials = ıtem.GetGameObject().GetComponent<MeshRenderer>().sharedMaterials;
+        _trans.localScale = ıtem.GetGameObject().GetComponent<Transform>().localScale;
+        _trans.rotation = ıtem.GetGameObject().GetComponent<Transform>().rotation;
+        _coll.size = ıtem.GetGameObject().GetComponent<BoxCollider>().size;
         //Rename();
+    }
+
+    public Item GetItem()
+    {
+        return _ıtem;
+    }
+
+    public void DestroySelf()
+    {
+        gameObject.SetActive(false);
     }
 }

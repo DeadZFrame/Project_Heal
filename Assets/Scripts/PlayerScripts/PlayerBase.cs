@@ -1,83 +1,25 @@
 using System;
 using System.Collections;
-using System.Security.Cryptography;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerBase : MonoBehaviour
 {
-    public float moveSpeed;
     private Rigidbody _rb;
 
-    private CameraBase _cameraBase;
-    private InventoryManager _ınventoryManager;
-    private RigidbodyManager _rigidbodyManager;
-
-    [System.NonSerialized]public Collider ıtem;
-
-    private bool grounded = false;
+    public float moveSpeed;
+    public float jumpForce;
+    [NonSerialized]public bool grounded = false;
 
     private void Awake()
     {
-        _rigidbodyManager = GameObject.Find("TABLE_BREAKABLE").GetComponent<RigidbodyManager>();
         _rb = GetComponent<Rigidbody>();
-        _cameraBase = GameObject.Find("Main Camera").GetComponent<CameraBase>();
-        _ınventoryManager = GameObject.Find("InventoryUI").GetComponent<InventoryManager>();
     }
 
     private void FixedUpdate()
     {
         Movement();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.parent != null)
-        {
-            if (collision.transform.parent.tag.Equals("Ground") || collision.transform.tag.Equals("Ground"))    
-            {
-                var colID = collision.gameObject.name;
-                _cameraBase.floor = GameObject.Find(colID).GetComponent<Transform>();
-                grounded = true;
-            }
-        }
-        else
-        {
-            if (collision.transform.tag.Equals("Ground"))
-            {
-                var colID = collision.gameObject.name;
-                _cameraBase.floor = GameObject.Find(colID).GetComponent<Transform>();
-                grounded = true;
-            }
-        }
-
-        if (collision.transform.tag.Equals("EnvObjects"))
-        {
-            foreach (var obj in _rigidbodyManager.objects)
-            {
-                obj.constraints = RigidbodyConstraints.None;
-            }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.tag.Equals("Item"))
-        {
-            if (other.gameObject.GetComponent<ItemWorld>() == null)
-            {
-                ıtem = other;
-                ıtem.gameObject.AddComponent<ItemWorld>();
-            }
-            else
-            {
-                Destroy(other.gameObject.GetComponent<ItemWorld>());
-                _ınventoryManager.AddItem();
-                InventorySlot.slot.ToText();
-                other.gameObject.SetActive(false);
-            }
-        }
     }
 
     private void Movement()
@@ -104,7 +46,7 @@ public class PlayerBase : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
-            _rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             grounded = false;
         }
     }

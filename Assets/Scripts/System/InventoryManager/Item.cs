@@ -12,6 +12,7 @@ public class Item
     }
 
     public ItemTypes ıtemTypes;
+    public int amount;
 
     public GameObject GetGameObject()
     {

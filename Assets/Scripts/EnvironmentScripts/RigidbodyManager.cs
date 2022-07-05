@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class RigidbodyManager : MonoBehaviour
 {
-    public Rigidbody[] objects;
+    [NonSerialized]public Rigidbody[] objects;
 
     private void Awake()
     {
