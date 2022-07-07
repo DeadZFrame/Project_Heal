@@ -16,7 +16,7 @@ public class Item
     
     public ItemTypes ıtemTypes;
     
-    [NonSerialized]public KeyCode keyCode;
+    [NonSerialized] public KeyCode keyCode;
     [NonSerialized] public Image slot;
 
     public GameObject GetGameObject()

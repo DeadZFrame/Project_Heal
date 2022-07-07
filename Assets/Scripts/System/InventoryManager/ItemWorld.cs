@@ -31,14 +31,13 @@ public class ItemWorld : MonoBehaviour
 
     private void SetItem(Item ıtem)
     {
-        gameObject.name = ıtem.GetGameObject().name;
         _ıtem = ıtem;
         _meshFilter.sharedMesh = ıtem.GetGameObject().GetComponent<MeshFilter>().sharedMesh;
         _meshRenderer.sharedMaterials = ıtem.GetGameObject().GetComponent<MeshRenderer>().sharedMaterials;
         _trans.localScale = ıtem.GetGameObject().GetComponent<Transform>().localScale;
         _trans.rotation = ıtem.GetGameObject().GetComponent<Transform>().rotation;
         _coll.size = ıtem.GetGameObject().GetComponent<BoxCollider>().size;
-        //Rename();
+        gameObject.name = ıtem.GetGameObject().name;
     }
 
     public Item GetItem()

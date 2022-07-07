@@ -49,7 +49,7 @@ public class InventoryUI : MonoBehaviour
     {
         foreach (var ıtem in _ınventory.GetItemList())
         {
-            if(ıtem.slot != null) return;
+            if(ıtem.slot != null) continue;
             
             foreach (var slot in slots)
             {
@@ -58,7 +58,6 @@ public class InventoryUI : MonoBehaviour
                 slots.Remove(slot);
                 break;
             }
-
             foreach (var key in ItemAssets.Instance.keyCodes)
             {
                 ıtem.keyCode = key;

@@ -11,8 +11,6 @@ public class Player : MonoBehaviour
 
     public Inventory ınventory;
 
-    private bool _exists = false;
-
     private void Awake()
     {
         _playerBase = gameObject.GetComponent<PlayerBase>();
@@ -77,8 +75,6 @@ public class Player : MonoBehaviour
                     break;
             }
         }
-        
-        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -89,13 +85,7 @@ public class Player : MonoBehaviour
         var ıtemMagnet = other.gameObject.GetComponent<ItemMagnet>();
         
         if(ınventory.GetItemList().Count > 5) return;
-
-        _exists = false;
-        foreach (var ıtem in ınventory.GetItemList())
-        {
-            if(other.gameObject.name.Equals(ıtem.GetGameObject().name)) _exists = true;
-        }
-        if(_exists) return;
+        
         if (ıtemMagnet.enabled)
         {
             if (ıtemWorld == null) return;
