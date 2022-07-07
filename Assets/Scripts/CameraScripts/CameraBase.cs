@@ -16,9 +16,11 @@ public class CameraBase : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 center = new Vector3(floor.position.x + _player.transform.position.x, 0 ,floor.position.z + _player.transform.position.z) / 2f;
-        Vector3 cam = center + offset;
-        Vector3 smooth = Vector3.SmoothDamp(transform.position, cam, ref _velocity, speed);
+        var fPos = floor.position;
+        var pPos = _player.position;
+        var center = new Vector3(fPos.x + pPos.x, 0 ,fPos.z + pPos.z) / 2f;
+        var cam = center + offset;
+        var smooth = Vector3.SmoothDamp(transform.position, cam, ref _velocity, speed);
         transform.position = smooth;
     }
 }

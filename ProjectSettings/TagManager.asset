@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Ground
   - Item
-  - Slot
   - EnvObjects
   - InventoryItem
   - EnvObjects

@@ -38,7 +38,7 @@ public class Inventory
     public void ToggleItem()
     {
         toggled = !toggled;
-        //Anımation
+        //Animation
     }
 
     public List<Item> GetItemList()

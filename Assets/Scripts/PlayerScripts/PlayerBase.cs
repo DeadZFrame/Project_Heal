@@ -5,16 +5,21 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 public class PlayerBase : MonoBehaviour
 {
     private Player _player;
     
     private Rigidbody _rb;
-
-    private Transform[] _childs;
+    
     private ItemWorld _obj;
     private Item _ıtem;
+
+    [FormerlySerializedAs("_hand")] public Transform hand;
+    [FormerlySerializedAs("_hammer")] public Transform hammer;
+
+    private Animator _animator;
 
     private Vector3 _direction;
     
@@ -24,8 +29,8 @@ public class PlayerBase : MonoBehaviour
 
     private void Awake()
     {
+        _animator = gameObject.GetComponent<Animator>();
         _player = gameObject.GetComponent<Player>();
-        _childs = gameObject.GetComponentsInChildren<Transform>();
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -33,18 +38,22 @@ public class PlayerBase : MonoBehaviour
     {
         if (_player.ınventory.toggled)
         {
+            hammer.gameObject.SetActive(false);
             Throw();
         }
         else
         {
+            hammer.gameObject.SetActive(true);
             Swing();
         }
         Movement();
-        Interact();
+        CycleTroughInventory();
+        Jump();
     }
 
     private void Movement()
     {
+        
         var currentPos = _rb.transform.position;
 
         var horizontalInput = Input.GetAxis("Horizontal");
@@ -68,8 +77,17 @@ public class PlayerBase : MonoBehaviour
             var lookPos = Mathf.Atan2(_direction.x, _direction.z)*Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, lookPos, 0);
         }
-
-        Jump();
+        
+        if (horizontalInput != 0 || verticalInput != 0)
+        {
+            _animator.SetBool("IsWalking", true);
+            _animator.SetBool("IsIdle", false);
+        }
+        else
+        {
+            _animator.SetBool("IsWalking", false);
+            _animator.SetBool("IsIdle", true);
+        }
     }
 
     private void Jump()
@@ -81,8 +99,10 @@ public class PlayerBase : MonoBehaviour
 
     private void Swing()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
+            _animator.SetTrigger("Attack");
+            
             //Swing Animation
         }
     }
@@ -102,34 +122,29 @@ public class PlayerBase : MonoBehaviour
         _player.ınventory.ToggleItem();
     }
 
-    private void Interact()
+    private void CycleTroughInventory()
     {
         foreach (var getKey in ItemAssets.Instance.keyData)
         {
-            if (!Input.GetKeyDown(getKey) || _player.ınventory.GetItemList().Count <= 0) continue;
+            if (!Input.GetKeyDown(getKey) || _player.ınventory.GetItemList().Count == 0) continue;
             
             foreach (var ıtem in _player.ınventory.GetItemList())
             {
                 if (ıtem.keyCode != getKey) continue;
+
+                _ıtem = ıtem;
                 
-                foreach (var child in _childs)
+                if (!_player.ınventory.toggled)
                 {
-                    if (!child.name.Equals("Hand")) continue;
-                    
-                    _ıtem = ıtem;
-                    
-                    if (!_player.ınventory.toggled)
-                    {
-                        _obj = ItemWorld.SpawnItemWorld(child.position, new Item { ıtemTypes = ıtem.ıtemTypes});
-                        _obj.transform.parent = child.transform;
-                        _obj.tag = "InventoryItem";
-                        _player.ınventory.ToggleItem();
-                    }
-                    else
-                    {
-                        _obj.DestroySelf();
-                        _player.ınventory.ToggleItem();
-                    }
+                    _obj = ItemWorld.SpawnItemWorld(hand.position, new Item { ıtemTypes = ıtem.ıtemTypes});
+                    _obj.transform.parent = hand.transform;
+                    _obj.tag = "InventoryItem";
+                    _player.ınventory.ToggleItem();
+                }
+                else
+                {
+                    _obj.DestroySelf();
+                    _player.ınventory.ToggleItem();
                 }
             }
         }
