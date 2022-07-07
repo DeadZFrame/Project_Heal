@@ -2754,8 +2754,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1966135861}
-  - component: {fileID: 1966135863}
   - component: {fileID: 1966135862}
+  - component: {fileID: 1966135863}
   m_Layer: 5
   m_Name: RepairBar
   m_TagString: Untagged
@@ -2797,7 +2797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045ede33a73fec04b92554f7ac06ec1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  repairing: 0
 --- !u!114 &1966135863
 MonoBehaviour:
   m_ObjectHideFlags: 0

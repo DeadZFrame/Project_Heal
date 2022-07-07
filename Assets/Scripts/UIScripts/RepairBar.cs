@@ -8,21 +8,15 @@ using UnityEngine.UI;
 public class RepairBar : MonoBehaviour
 {
     [NonSerialized] public Slider repairBar;
-    public bool repairing = false;
+    private Transform _player;
     private void Awake()
     {
         repairBar = gameObject.GetComponent<Slider>();
+        _player = GameObject.Find("Player").transform;
     }
 
-    private void Update()
+    /*private void Update()
     {
-        if (repairing)
-        {
-            repairBar.value += 0.3f * Time.deltaTime;
-        }
-        else
-        {
-            repairBar.value -= 0.1f * Time.deltaTime;
-        }
-    }
+        var pos = Camera.main.WorldToScreenPoint(_player.position);
+    }*/
 }

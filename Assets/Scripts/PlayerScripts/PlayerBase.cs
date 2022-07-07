@@ -31,6 +31,14 @@ public class PlayerBase : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_player.ınventory.toggled)
+        {
+            Throw();
+        }
+        else
+        {
+            Swing();
+        }
         Movement();
         Interact();
     }
@@ -79,6 +87,21 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    private void Throw()
+    {
+        if (!Input.GetKeyDown(KeyCode.Q)) return;
+        if (!_player.ınventory.toggled) return;
+        
+        _obj.transform.parent = null;
+        _obj.tag = "Item";
+        _obj.GetComponent<BoxCollider>().isTrigger = false;
+        _obj.GetComponent<Rigidbody>().useGravity = true;
+        _obj.GetComponent<Rigidbody>().AddForce(_direction * jumpForce/2, ForceMode.Impulse);
+                
+        _player.ınventory.RemoveItem(_ıtem);
+        _player.ınventory.ToggleItem();
+    }
+
     private void Interact()
     {
         foreach (var getKey in ItemAssets.Instance.keyData)
@@ -112,17 +135,5 @@ public class PlayerBase : MonoBehaviour
         }
         
         if(_player.ınventory.toggled) _obj.transform.localPosition = new Vector3(0, 0, 0);
-
-        if (!Input.GetKeyDown(KeyCode.Q)) return;
-        if (!_player.ınventory.toggled) return;
-        
-        _obj.transform.parent = null;
-        _obj.tag = "Item";
-        _obj.GetComponent<BoxCollider>().isTrigger = false;
-        _obj.GetComponent<Rigidbody>().useGravity = true;
-        _obj.GetComponent<Rigidbody>().AddForce(_direction * jumpForce/2, ForceMode.Impulse);
-                
-        _player.ınventory.RemoveItem(_ıtem);
-        _player.ınventory.ToggleItem();
     }
 }
