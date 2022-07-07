@@ -1,19 +1,34 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine.UI;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
+    public static InventoryUI Instance { get; private set; }
+    
     private Inventory _ınventory;
+
     private Transform _slotGroup;
-    private Transform _slot;
+    private Image[] _slots;
+    
+    public List<Image> slots;
+    public Sprite[] sprites;
 
     private void Awake()
     {
-        _slotGroup = transform.Find("SlotGroup");
-        _slot = _slotGroup.Find("Slot");
+        Instance = this;
+        
+        _slotGroup = gameObject.GetComponentInChildren<RectTransform>();
+        _slots = _slotGroup.GetComponentsInChildren<Image>();
+        
+        slots = new List<Image>();
+        foreach (var slot in _slots)
+        {
+            slots.Add(slot);
+        }
     }
 
     public void SetInventory(Inventory ınventory)
@@ -32,29 +47,24 @@ public class InventoryUI : MonoBehaviour
 
     private void RefreshInventory()
     {
-        foreach (Transform child in _slotGroup)
-        {
-            if (child == _slot) continue;
-            Destroy(child.gameObject);
-        }
-        
-        var x = 0;
-        var y = 0;
-        var slotSize = 50f;
         foreach (var ıtem in _ınventory.GetItemList())
         {
-            RectTransform slotRectTransform = Instantiate(_slot, _slotGroup).GetComponent<RectTransform>();
-            slotRectTransform.gameObject.SetActive(true);
+            if(ıtem.slot != null) return;
+            
+            foreach (var slot in slots)
+            {
+                ıtem.slot = slot;
+                //ıtem.slot.sprite = ıtem.GetSprite();
+                slots.Remove(slot);
+                break;
+            }
 
-            slotRectTransform.anchoredPosition = new Vector2(x * slotSize, y * slotSize);
-            Image ımage = slotRectTransform.Find("Image").GetComponent<Image>();
-            ımage.sprite = ıtem.GetSprite();
-
-            x++;
-            if (x <= 4) continue;
-            x = 0;
-            y++;
-
+            foreach (var key in ItemAssets.Instance.keyCodes)
+            {
+                ıtem.keyCode = key;
+                ItemAssets.Instance.keyCodes.Remove(key);
+                break;
+            }
         }
     }
 }

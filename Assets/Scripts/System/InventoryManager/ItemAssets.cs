@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemAssets : MonoBehaviour
 {
@@ -12,8 +13,18 @@ public class ItemAssets : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        foreach (var key in keyCodes)
+        {
+            keyData.Add(key);
+        }
+    }
+
     public Transform materialWorld;
     
     public GameObject[] materials;
-    public Sprite[] sprites;
+    public List<KeyCode> keyCodes;
+
+    public List<KeyCode> keyData;
 }

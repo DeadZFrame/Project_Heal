@@ -8,7 +8,7 @@ public class CustomSpawner : MonoBehaviour
 {
     public Item ıtem;
 
-    private void Awake()
+    private void Start()
     {
         ItemWorld.SpawnItemWorld(transform.position, ıtem);
         Destroy(gameObject);

@@ -1,13 +1,17 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
     private CameraBase _cameraBase;
     private RigidbodyManager _rigidbodyManager;
     private PlayerBase _playerBase;
+
     [SerializeField]private InventoryUI ınventoryUI;
 
-    private Inventory _ınventory;
+    public Inventory ınventory;
+
+    private bool _exists = false;
 
     private void Awake()
     {
@@ -18,68 +22,89 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        _ınventory = new Inventory();
-        ınventoryUI.SetInventory(_ınventory);
+        ınventory = new Inventory();
+        ınventoryUI.SetInventory(ınventory);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.parent != null)
         {
-            if (collision.transform.parent.tag.Equals("Ground") || collision.transform.tag.Equals("Ground"))    
+            switch (collision.transform.parent.tag)
             {
-                var colID = collision.gameObject.name;
-                _cameraBase.floor = GameObject.Find(colID).GetComponent<Transform>();
-                _playerBase.grounded = true;
+                case "Ground":
+                {
+                    var colID = collision.gameObject.name;
+                    _cameraBase.floor = GameObject.Find(colID).GetComponent<Transform>();
+                    _playerBase.grounded = true;
+                    break;
+                }
+                case "EnvObjects":
+                {
+                    var broke = false;
+                    foreach (var obj in _rigidbodyManager.objects)
+                    {
+                        if (obj.constraints == RigidbodyConstraints.FreezeAll)
+                        {
+                            if (!broke)
+                            {
+                                var parent = collision.transform.GetComponentInParent<Transform>().position;
+                                ItemWorld.SpawnItemWorld(new Vector3(parent.x, parent.y, 1.5f), new Item{ıtemTypes = Item.ItemTypes.Plank});   
+                            }
+                            broke = true;
+                        }
+                        obj.constraints = RigidbodyConstraints.None;
+                    }
+
+                    break;
+                }
             }
         }
         else
         {
-            if (collision.transform.tag.Equals("Ground"))
+            switch (collision.transform.tag)
             {
-                var colID = collision.gameObject.name;
-                _cameraBase.floor = GameObject.Find(colID).GetComponent<Transform>();
-                _playerBase.grounded = true;
-            }
-        }
-
-        if (collision.transform.parent.tag.Equals("EnvObjects"))
-        {
-            bool broke = false;
-            foreach (var obj in _rigidbodyManager.objects)
-            {
-                if (obj.constraints == RigidbodyConstraints.FreezeAll)
+                case "Ground":
                 {
-                    if (!broke)
-                    {
-                        var parent = collision.transform.GetComponentInParent<Transform>().position;
-                        ItemWorld.SpawnItemWorld(new Vector3(parent.x, parent.y, 1.5f), new Item{ıtemTypes = Item.ItemTypes.Plank, amount = 1});   
-                    }
-                    broke = true;
+                    var colID = collision.gameObject.name;
+                    _cameraBase.floor = GameObject.Find(colID).GetComponent<Transform>();
+                    _playerBase.grounded = true;
+                    break;
                 }
-                obj.constraints = RigidbodyConstraints.None;
+                case "Item":
+                    collision.collider.isTrigger = true;
+                    collision.transform.GetComponent<Rigidbody>().useGravity = false;
+                    break;
             }
         }
+        
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Item"))
+        if (!other.tag.Equals("Item")) return;
+        
+        var ıtemWorld = other.GetComponent<ItemWorld>();
+        var ıtemMagnet = other.gameObject.GetComponent<ItemMagnet>();
+        
+        if(ınventory.GetItemList().Count > 5) return;
+
+        _exists = false;
+        foreach (var ıtem in ınventory.GetItemList())
         {
-            ItemMagnet ıtemMagnet = other.gameObject.GetComponent<ItemMagnet>();
-            if (ıtemMagnet.enabled)
-            {
-                ItemWorld ıtemWorld = other.GetComponent<ItemWorld>();
-                if (ıtemWorld != null)
-                {
-                    _ınventory.AddItem(ıtemWorld.GetItem());
-                    ıtemWorld.DestroySelf();
-                }
-            }
-            else
-            {
-                ıtemMagnet.enabled = true;
-            }
+            if(other.gameObject.name.Equals(ıtem.GetGameObject().name)) _exists = true;
+        }
+        if(_exists) return;
+        if (ıtemMagnet.enabled)
+        {
+            if (ıtemWorld == null) return;
+            ınventory.AddItem(ıtemWorld.GetItem());
+            ıtemWorld.DestroySelf();
+        }
+        else
+        {
+            ıtemMagnet.enabled = true;
         }
     }
 }

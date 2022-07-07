@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
+
 [Serializable]
 public class Item
 {
@@ -10,9 +13,11 @@ public class Item
     {
         Plank, Cable, Nails, Iron, Stone
     }
-
+    
     public ItemTypes ıtemTypes;
-    public int amount;
+    
+    [NonSerialized]public KeyCode keyCode;
+    [NonSerialized] public Image slot;
 
     public GameObject GetGameObject()
     {
@@ -26,17 +31,17 @@ public class Item
             case ItemTypes.Stone: return ItemAssets.Instance.materials[4];
         }
     }
-
+    
     public Sprite GetSprite()
     {
         switch (ıtemTypes)
         {
             default:
-            case ItemTypes.Plank: return ItemAssets.Instance.sprites[0];
-            case ItemTypes.Cable: return ItemAssets.Instance.sprites[1];
-            case ItemTypes.Nails: return ItemAssets.Instance.sprites[2];
-            case ItemTypes.Iron: return ItemAssets.Instance.sprites[3];
-            case ItemTypes.Stone: return ItemAssets.Instance.sprites[4];
+            case ItemTypes.Plank: return InventoryUI.Instance.sprites[0];
+            case ItemTypes.Cable: return InventoryUI.Instance.sprites[1];
+            case ItemTypes.Nails: return InventoryUI.Instance.sprites[2];
+            case ItemTypes.Iron: return InventoryUI.Instance.sprites[3];
+            case ItemTypes.Stone: return InventoryUI.Instance.sprites[4];
         }
     }
 }

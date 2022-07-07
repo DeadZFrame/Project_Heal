@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
+using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory
 {
@@ -9,25 +12,33 @@ public class Inventory
     
     private List<Item> _ıtemList;
 
+    [NonSerialized] public bool toggled = false;
+
     public Inventory()
     {
         _ıtemList = new List<Item>();
     }
 
-    public void AddItem(Item item)
+    public void AddItem(Item ıtem)
     {
-        bool ınInventory = false;
-        foreach (Item ıtem in _ıtemList)
-        {
-            if (ıtem.ıtemTypes == item.ıtemTypes)
-            {
-                ıtem.amount += item.amount;
-                ınInventory = true;
-            }
-        }
-        if(!ınInventory)
-            _ıtemList.Add(item);
+        _ıtemList.Add(ıtem);
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void RemoveItem(Item ıtem)
+    {
+        _ıtemList.Remove(ıtem);
+        
+        InventoryUI.Instance.slots.Insert(0, ıtem.slot);
+        //ıtem.slot.sprite = null;
+        ıtem.slot = null;
+        ItemAssets.Instance.keyCodes.Insert(0, ıtem.keyCode);
+    }
+
+    public void ToggleItem()
+    {
+        toggled = !toggled;
+        //Anımation
     }
 
     public List<Item> GetItemList()

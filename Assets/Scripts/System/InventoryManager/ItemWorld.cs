@@ -7,12 +7,12 @@ public class ItemWorld : MonoBehaviour
 {
     public static ItemWorld SpawnItemWorld(Vector3 position, Item ıtem)
     {
-        Transform transform = Instantiate(ItemAssets.Instance.materialWorld, position, Quaternion.identity);
+        var transform = Instantiate(ItemAssets.Instance.materialWorld, position, Quaternion.identity);
 
-        ItemWorld itemWorld = transform.GetComponent<ItemWorld>();
-        itemWorld.SetItem(ıtem);
+        var ıtemWorld = transform.GetComponent<ItemWorld>();
+        ıtemWorld.SetItem(ıtem);
 
-        return itemWorld;
+        return ıtemWorld;
     }
 
     private Item _ıtem;
@@ -31,7 +31,8 @@ public class ItemWorld : MonoBehaviour
 
     private void SetItem(Item ıtem)
     {
-        this._ıtem = ıtem;
+        gameObject.name = ıtem.GetGameObject().name;
+        _ıtem = ıtem;
         _meshFilter.sharedMesh = ıtem.GetGameObject().GetComponent<MeshFilter>().sharedMesh;
         _meshRenderer.sharedMaterials = ıtem.GetGameObject().GetComponent<MeshRenderer>().sharedMaterials;
         _trans.localScale = ıtem.GetGameObject().GetComponent<Transform>().localScale;

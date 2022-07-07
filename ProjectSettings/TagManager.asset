@@ -8,6 +8,8 @@ TagManager:
   - Item
   - Slot
   - EnvObjects
+  - InventoryItem
+  - EnvObjects
   layers:
   - Default
   - TransparentFX
