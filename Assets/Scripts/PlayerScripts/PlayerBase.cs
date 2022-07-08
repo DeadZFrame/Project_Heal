@@ -90,7 +90,8 @@ public class PlayerBase : MonoBehaviour
                 _direction = target - transform.position;
                 var lookPos = Mathf.Atan2(_direction.x, _direction.z)*Mathf.Rad2Deg;
                 var rot = Quaternion.Euler(0, lookPos, 0);
-                Quaternion.Lerp(transform.rotation, rot, .125f);
+                transform.rotation = rot;
+                //Quaternion.Lerp(transform.rotation, rot, .125f);
             }
         }
         else
@@ -98,7 +99,7 @@ public class PlayerBase : MonoBehaviour
             if (grounded)
             {
                 var rot = Quaternion.LookRotation(_vectorInput);
-                Quaternion.Lerp(transform.rotation, rot, .125f);
+                transform.rotation = rot;
             }
         }
     }
