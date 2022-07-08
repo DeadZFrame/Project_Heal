@@ -10,19 +10,18 @@ using UnityEngine.Serialization;
 public class PlayerBase : MonoBehaviour
 {
     private Player _player;
+    private ItemWorld _obj;
+    private Item _ıtem;
     
     private Rigidbody _rb;
     
-    private ItemWorld _obj;
-    private Item _ıtem;
-
-    [FormerlySerializedAs("_hand")] public Transform hand;
-    [FormerlySerializedAs("_hammer")] public Transform hammer;
+    public Transform hand;
+    public Hammer hammer;
 
     private Animator _animator;
 
-    private Vector3 _direction;
-    
+    private Vector3 _direction, _vectorInput;
+
     public float moveSpeed;
     public float jumpForce;
     [NonSerialized]public bool grounded = false;
@@ -53,40 +52,54 @@ public class PlayerBase : MonoBehaviour
 
     private void Movement()
     {
-        
-        var currentPos = _rb.transform.position;
-
-        var horizontalInput = Input.GetAxis("Horizontal");
-        var verticalInput = Input.GetAxis("Vertical");
-
-
-        var vectorInput = new Vector3(horizontalInput, 0, verticalInput);
-        vectorInput = Vector3.ClampMagnitude(vectorInput, 1);
-
-        var movement = vectorInput * moveSpeed;
-        var newPos = currentPos + movement * Time.fixedDeltaTime;
-
-        _rb.MovePosition(newPos);
-        
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var plane = new Plane(Vector3.up, Vector3.zero);
-        if (plane.Raycast(ray, out var distance))
+        if (grounded)
         {
-            var target = ray.GetPoint(distance);
-            _direction = target - transform.position;
-            var lookPos = Mathf.Atan2(_direction.x, _direction.z)*Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, lookPos, 0);
+            var currentPos = _rb.transform.position;
+            
+            var horizontalInput = Input.GetAxis("Horizontal");
+            var verticalInput = Input.GetAxis("Vertical");
+    
+    
+            _vectorInput = new Vector3(horizontalInput, 0, verticalInput);
+            _vectorInput = Vector3.ClampMagnitude(_vectorInput, 1);
+    
+            var movement = _vectorInput * moveSpeed;
+            var newPos = currentPos + movement * Time.fixedDeltaTime;
+    
+            _rb.MovePosition(newPos);
+            
+            if (horizontalInput != 0 || verticalInput != 0)
+            {
+                _animator.SetBool("IsWalking", true);
+                _animator.SetBool("IsIdle", false);
+            }
+            else
+            {
+                _animator.SetBool("IsWalking", false);
+                _animator.SetBool("IsIdle", true);
+            }
         }
-        
-        if (horizontalInput != 0 || verticalInput != 0)
+
+        if (_animator.GetBool("IsIdle") || _animator.GetBool("IsAttack"))
         {
-            _animator.SetBool("IsWalking", true);
-            _animator.SetBool("IsIdle", false);
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var plane = new Plane(Vector3.up, Vector3.zero);
+            if (plane.Raycast(ray, out var distance))
+            {
+                var target = ray.GetPoint(distance);
+                _direction = target - transform.position;
+                var lookPos = Mathf.Atan2(_direction.x, _direction.z)*Mathf.Rad2Deg;
+                var rot = Quaternion.Euler(0, lookPos, 0);
+                Quaternion.Lerp(transform.rotation, rot, .125f);
+            }
         }
         else
         {
-            _animator.SetBool("IsWalking", false);
-            _animator.SetBool("IsIdle", true);
+            if (grounded)
+            {
+                var rot = Quaternion.LookRotation(_vectorInput);
+                Quaternion.Lerp(transform.rotation, rot, .125f);
+            }
         }
     }
 
@@ -94,6 +107,11 @@ public class PlayerBase : MonoBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.Space) || !grounded) return;
         _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        var pos =  hand.position - transform.position;
+        _rb.AddForce(pos * 2, ForceMode.Impulse);
+        
+        _animator.SetTrigger("Jump");
+
         grounded = false;
     }
 
@@ -101,10 +119,14 @@ public class PlayerBase : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            _animator.SetTrigger("Attack");
+            if (Input.GetKeyDown(KeyCode.Mouse0)) StartCoroutine(EnableHammer());
             
-            //Swing Animation
+            _animator.SetTrigger("Attack");
+            _animator.SetBool("IsAttack", true);
+            
+            StartCoroutine(DisableHammer());
         }
+        else if (Input.GetKeyUp(KeyCode.Mouse0)) StartCoroutine(DisableAttackAnimationBool());
     }
 
     private void Throw()
@@ -150,5 +172,23 @@ public class PlayerBase : MonoBehaviour
         }
         
         if(_player.ınventory.toggled) _obj.transform.localPosition = new Vector3(0, 0, 0);
+    }
+
+    private IEnumerator DisableHammer()
+    {
+        yield return new WaitForSeconds(.4f);
+        hammer.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    private IEnumerator EnableHammer()
+    {
+        yield return new WaitForSeconds(.1f);
+        hammer.GetComponent<BoxCollider>().enabled = true;
+    }
+
+    private IEnumerator DisableAttackAnimationBool()
+    {
+        yield return new WaitForSeconds(.5f);
+        _animator.SetBool("IsAttack", false);
     }
 }
