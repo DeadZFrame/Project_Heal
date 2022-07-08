@@ -136,7 +136,7 @@ public class PlayerBase : MonoBehaviour
                 
                 if (!_player.ınventory.toggled)
                 {
-                    _obj = ItemWorld.SpawnItemWorld(hand.position, new Item { ıtemTypes = ıtem.ıtemTypes});
+                    _obj = ItemWorld.SpawnItemWorld(new Vector3(0, 0, 0), new Item { ıtemTypes = ıtem.ıtemTypes});
                     _obj.transform.parent = hand.transform;
                     _obj.tag = "InventoryItem";
                     _player.ınventory.ToggleItem();
