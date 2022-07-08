@@ -22,8 +22,7 @@ public class PlayerBase : MonoBehaviour
 
     private Vector3 _direction, _vectorInput;
 
-    public float moveSpeed;
-    public float jumpForce;
+    public float moveSpeed, jumpForce;
     [NonSerialized]public bool grounded = false;
 
     private void Awake()
@@ -109,7 +108,7 @@ public class PlayerBase : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Space) || !grounded) return;
         _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         var pos =  hand.position - transform.position;
-        _rb.AddForce(pos * 2, ForceMode.Impulse);
+        _rb.AddForce(pos * jumpForce*2, ForceMode.Impulse);
         
         _animator.SetTrigger("Jump");
 
@@ -189,7 +188,7 @@ public class PlayerBase : MonoBehaviour
 
     private IEnumerator DisableAttackAnimationBool()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.4f);
         _animator.SetBool("IsAttack", false);
     }
 }

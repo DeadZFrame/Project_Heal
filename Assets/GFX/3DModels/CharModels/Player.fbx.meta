@@ -1,23 +1,23 @@
 fileFormatVersion: 2
-guid: e50616f130db6da448555d5973c89c0d
+guid: 52af8f10ead67f848abad2949a0c2e74
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
-      74: 2073693694548410006
-    second: Armature.001|Armature.001|mixamo.com|Layer0
+      74: 777722695357065320
+    second: Player|Attack
   - first:
-      74: 495427370130382429
-    second: Armature.001|Armature.001|mixamo.com|Layer0.001
+      74: 1220396213081368378
+    second: Player|Idle
   - first:
-      74: -6734315199927337518
-    second: Armature.001|Armature|mixamo.com|Layer0
+      74: 2221424790427038968
+    second: Player|Jump
   - first:
-      74: 5228067795773068300
-    second: Armature.001|Armature|mixamo.com|Layer0.001
+      74: -4677912795334332095
+    second: Player|T Pose
   - first:
-      74: -2540856321930617521
-    second: Armature.001|Armature|mixamo.com|Layer0.001 (1)
+      74: -5294006321987392172
+    second: Player|Walking
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -48,37 +48,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature.001|Armature.001|mixamo.com|Layer0
-      takeName: Armature.001|Armature.001|mixamo.com|Layer0
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature.001|Armature.001|mixamo.com|Layer0.001
-      takeName: Armature.001|Armature.001|mixamo.com|Layer0.001
+      name: Player|Attack
+      takeName: Player|Attack
       internalID: 0
       firstFrame: 0
       lastFrame: 30
@@ -106,8 +77,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature.001|Armature|mixamo.com|Layer0.001 (1)
-      takeName: Armature.001|Armature|mixamo.com|Layer0.001
+      name: Player|Idle
+      takeName: Player|Idle
       internalID: 0
       firstFrame: 0
       lastFrame: 177
@@ -135,11 +106,69 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature.001|Armature|mixamo.com|Layer0.001
-      takeName: Armature.001|Armature|mixamo.com|Layer0.001
+      name: Player|Jump
+      takeName: Player|Jump
       internalID: 0
       firstFrame: 0
-      lastFrame: 177
+      lastFrame: 21
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Player|T Pose
+      takeName: Player|T Pose
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Player|Walking
+      takeName: Player|Walking
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 34
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
