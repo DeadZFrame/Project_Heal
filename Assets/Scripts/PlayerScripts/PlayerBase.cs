@@ -36,12 +36,12 @@ public class PlayerBase : MonoBehaviour
     {
         if (_player.ınventory.toggled)
         {
-            hammer.gameObject.SetActive(false);
+            hammer.transform.parent.gameObject.SetActive(false);
             Throw();
         }
         else
         {
-            hammer.gameObject.SetActive(true);
+            hammer.transform.parent.gameObject.SetActive(true);
             Swing();
         }
         Movement();
@@ -53,30 +53,32 @@ public class PlayerBase : MonoBehaviour
     {
         if (grounded)
         {
-            var currentPos = _rb.transform.position;
+            moveSpeed = 8;
+            _animator.SetBool("Grounded", true);
+        }
+        var currentPos = _rb.transform.position;
             
-            var horizontalInput = Input.GetAxis("Horizontal");
-            var verticalInput = Input.GetAxis("Vertical");
-    
-    
-            _vectorInput = new Vector3(horizontalInput, 0, verticalInput);
-            _vectorInput = Vector3.ClampMagnitude(_vectorInput, 1);
-    
-            var movement = _vectorInput * moveSpeed;
-            var newPos = currentPos + movement * Time.fixedDeltaTime;
-    
-            _rb.MovePosition(newPos);
-            
-            if (horizontalInput != 0 || verticalInput != 0)
-            {
-                _animator.SetBool("IsWalking", true);
-                _animator.SetBool("IsIdle", false);
-            }
-            else
-            {
-                _animator.SetBool("IsWalking", false);
-                _animator.SetBool("IsIdle", true);
-            }
+        var horizontalInput = Input.GetAxis("Horizontal");
+        var verticalInput = Input.GetAxis("Vertical");
+
+
+        _vectorInput = new Vector3(horizontalInput, 0, verticalInput);
+        _vectorInput = Vector3.ClampMagnitude(_vectorInput, 1);
+
+        var movement = _vectorInput * moveSpeed;
+        var newPos = currentPos + movement * Time.fixedDeltaTime;
+
+        _rb.MovePosition(newPos);
+        
+        if (horizontalInput != 0 || verticalInput != 0)
+        {
+            _animator.SetBool("IsWalking", true);
+            _animator.SetBool("IsIdle", false);
+        }
+        else
+        {
+            _animator.SetBool("IsWalking", false);
+            _animator.SetBool("IsIdle", true);
         }
 
         if (_animator.GetBool("IsIdle") || _animator.GetBool("IsAttack"))
@@ -107,26 +109,37 @@ public class PlayerBase : MonoBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.Space) || !grounded) return;
         _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        var pos =  hand.position - transform.position;
-        _rb.AddForce(pos * jumpForce*2, ForceMode.Impulse);
-        
+        moveSpeed = 4;
+
+        if (_vectorInput.x != 0 || _vectorInput.z != 0)
+        {
+            moveSpeed = 2;
+            var pos =  hand.position - transform.position;
+            _rb.AddForce(pos * 1.5f, ForceMode.Impulse);
+        }
+
         _animator.SetTrigger("Jump");
 
         grounded = false;
+        _animator.SetBool("Grounded", false);
     }
 
     private void Swing()
     {
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0)) StartCoroutine(EnableHammer());
-            
             _animator.SetTrigger("Attack");
             _animator.SetBool("IsAttack", true);
-            
-            StartCoroutine(DisableHammer());
         }
         else if (Input.GetKeyUp(KeyCode.Mouse0)) StartCoroutine(DisableAttackAnimationBool());
+
+        if (!_animator.GetBool("IsAttack")) return;
+        
+        var objects = Physics.OverlapSphere(hammer.transform.position, hammer.attackRange, hammer.objLayer);
+        foreach (var obj in objects)
+        {
+            obj.GetComponent<Rigidbody>().AddForce(obj.transform.position - transform.position * hammer.force, ForceMode.Impulse);
+        }
     }
 
     private void Throw()
@@ -172,18 +185,6 @@ public class PlayerBase : MonoBehaviour
         }
         
         if(_player.ınventory.toggled) _obj.transform.localPosition = new Vector3(0, 0, 0);
-    }
-
-    private IEnumerator DisableHammer()
-    {
-        yield return new WaitForSeconds(.4f);
-        hammer.GetComponent<BoxCollider>().enabled = false;
-    }
-
-    private IEnumerator EnableHammer()
-    {
-        yield return new WaitForSeconds(.1f);
-        hammer.GetComponent<BoxCollider>().enabled = true;
     }
 
     private IEnumerator DisableAttackAnimationBool()

@@ -2,18 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Hammer : MonoBehaviour
 {
+    public float attackRange;
     public float force;
-    private void Start()
-    {
-        gameObject.GetComponent<BoxCollider>().enabled = false;
-    }
+    public LayerMask objLayer;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnDrawGizmosSelected()
     {
-        if(other.GetComponent<Rigidbody>() == null) return;
-        other.GetComponent<Rigidbody>().AddForce((other.transform.position - transform.position) * force, ForceMode.Impulse);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

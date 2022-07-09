@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraBase : MonoBehaviour
 {
-    [System.NonSerialized]public Transform floor;
+    public Transform floor;
     private Transform _player;
     public Vector3 offset;
     private Vector3 _velocity = Vector3.zero;
@@ -11,11 +11,11 @@ public class CameraBase : MonoBehaviour
     private void Awake()
     {
         _player = GameObject.FindWithTag("Player").GetComponent<Transform>();
-        floor = GameObject.Find("Floor").GetComponent<Transform>();
     }
 
     private void LateUpdate()
     {
+        if(floor == null) return;
         var fPos = floor.position;
         var pPos = _player.position;
         var center = new Vector3(fPos.x + pPos.x, 0 ,fPos.z + pPos.z) / 2f;

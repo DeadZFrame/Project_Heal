@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 6e710b9eae6fab14283b7b25ace1d68f
+guid: 7e71736bfad49ae4796dcd7fce5ddde1
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GarageConcrate
+    second: {fileID: 2100000, guid: cd9a7d47e1bfaa14f8b7dff33455f2d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GarageDoor
+    second: {fileID: 2100000, guid: b4c5a13ecd718474894377dc22b1bdb5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
