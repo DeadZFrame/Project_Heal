@@ -75,6 +75,20 @@ public class Player : MonoBehaviour
                     _rigidbodyManager.Initialize();
                     break;
                 }
+                case "Wall":
+                    _rigidbodyManager.objects = collision.transform.GetComponentsInChildren<Rigidbody>();
+                    foreach (var obj in _rigidbodyManager.objects)
+                    {
+                        obj.constraints = RigidbodyConstraints.None;
+                        var objCollider = obj.GetComponent<BoxCollider>();
+                        if (objCollider.bounds
+                            .Intersects(gameObject.GetComponent<BoxCollider>().bounds))
+                        {
+                            objCollider.isTrigger = true;
+                        }
+                    }
+                    _rigidbodyManager.Initialize();
+                    break;
             }
         }
         else

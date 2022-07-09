@@ -8,7 +8,7 @@ public class Hammer : MonoBehaviour
 {
     public float attackRange;
     public float force;
-    public LayerMask objLayer;
+    public LayerMask objLayer, layerMask;
 
     private void OnDrawGizmosSelected()
     {

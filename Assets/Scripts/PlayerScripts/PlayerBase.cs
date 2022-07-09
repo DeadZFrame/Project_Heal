@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class PlayerBase : MonoBehaviour
 {
@@ -19,8 +20,6 @@ public class PlayerBase : MonoBehaviour
     public Hammer hammer;
 
     private Animator _animator;
-
-    private Vector3 _direction, _vectorInput;
 
     public float moveSpeed, jumpForce;
     [NonSerialized]public bool grounded = false;
@@ -42,12 +41,20 @@ public class PlayerBase : MonoBehaviour
         else
         {
             hammer.transform.parent.gameObject.SetActive(true);
-            Swing();
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !_onAttack)
+            {
+                _onAttack = true;
+                _animator.SetTrigger("Attack");
+                StartCoroutine(SetAttack(false));
+            }
         }
         Movement();
         CycleTroughInventory();
         Jump();
+        Attack();
     }
+    
+    private Vector3 _direction, _vectorInput;
 
     private void Movement()
     {
@@ -123,23 +130,36 @@ public class PlayerBase : MonoBehaviour
         grounded = false;
         _animator.SetBool("Grounded", false);
     }
+    
+    [NonSerialized]public Collider brokeObjects;
+    public GameObject repairBar;
+    private GameObject _bar;
+    private bool _onAttack, _attacked;
 
-    private void Swing()
+    private void Attack()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-            _animator.SetTrigger("Attack");
-            _animator.SetBool("IsAttack", true);
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse0)) StartCoroutine(DisableAttackAnimationBool());
-
-        if (!_animator.GetBool("IsAttack")) return;
+        if(!_onAttack) return;
+        if(_attacked) return;
+        var hammerPos = hammer.transform.position;
         
-        var objects = Physics.OverlapSphere(hammer.transform.position, hammer.attackRange, hammer.objLayer);
+        var objects = Physics.OverlapSphere(hammerPos, hammer.attackRange, hammer.objLayer);
         foreach (var obj in objects)
         {
             obj.GetComponent<Rigidbody>().AddForce(obj.transform.position - transform.position * hammer.force, ForceMode.Impulse);
         }
+
+        var brokeObj = Physics.OverlapSphere(hammerPos, hammer.attackRange, hammer.layerMask);
+        foreach (var obj in brokeObj)
+        {
+            repairBar.SetActive(true);
+            _bar = repairBar;
+            brokeObjects = obj;
+        }
+
+        if (_bar == null) return;
+        _bar.GetComponent<RepairBar>().repairBar.value += 0.1f;
+        _bar = null;
+        _attacked = true;
     }
 
     private void Throw()
@@ -183,13 +203,13 @@ public class PlayerBase : MonoBehaviour
                 }
             }
         }
-        
         if(_player.ınventory.toggled) _obj.transform.localPosition = new Vector3(0, 0, 0);
     }
 
-    private IEnumerator DisableAttackAnimationBool()
+    private IEnumerator SetAttack(bool attack)
     {
         yield return new WaitForSeconds(.4f);
-        _animator.SetBool("IsAttack", false);
+        _onAttack = attack;
+        _attacked = attack;
     }
 }

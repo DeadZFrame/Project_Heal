@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class CameraBase : MonoBehaviour
 {
-    public Transform floor;
+    [NonSerialized]public Transform floor;
     private Transform _player;
     public Vector3 offset;
     private Vector3 _velocity = Vector3.zero;

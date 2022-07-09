@@ -9,6 +9,7 @@ TagManager:
   - EnvObjects
   - InventoryItem
   - EnvObjects
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - BreakableObj
   - Roof
-  - 
+  - Broken
   - 
   - 
   - 
