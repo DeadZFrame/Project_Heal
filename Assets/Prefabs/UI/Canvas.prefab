@@ -357,7 +357,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots: []
-  sprites: []
+  sprites:
+  - {fileID: 21300000, guid: bbf29071d0c632c4b8b2487f4ca8e50d, type: 3}
+  - {fileID: 21300000, guid: f224568f7f0e9eb438f66bffe5bf1fec, type: 3}
+  - {fileID: 21300000, guid: fd76a25fb3c4f2040922af74ffaabe32, type: 3}
+  - {fileID: 21300000, guid: ebef28f1a5ec3ae429d57215b02f9e4a, type: 3}
+  - {fileID: 21300000, guid: ec63465885c589a49886f8844273a3a6, type: 3}
 --- !u!1 &7372338901496038364
 GameObject:
   m_ObjectHideFlags: 0

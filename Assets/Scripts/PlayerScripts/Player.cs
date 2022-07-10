@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class Player : MonoBehaviour
 {
     private CameraBase _cameraBase;
-    private RigidbodyManager _rigidbodyManager;
+    [NonSerialized]public RigidbodyManager rigidbodyManager;
     private PlayerBase _playerBase;
 
     [SerializeField]private InventoryUI ınventoryUI;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
         ınventory = new Inventory();
         _playerBase = gameObject.GetComponent<PlayerBase>();
         if(GameObject.FindGameObjectWithTag("EnvObjects") != null)
-            _rigidbodyManager = GameObject.FindGameObjectWithTag("EnvObjects").GetComponent<RigidbodyManager>();
+            rigidbodyManager = GameObject.FindGameObjectWithTag("EnvObjects").GetComponent<RigidbodyManager>();
         _cameraBase = GameObject.Find("Main Camera").GetComponent<CameraBase>();
     }
 
@@ -48,11 +48,11 @@ public class Player : MonoBehaviour
                     _cameraBase.floor = colID;
                     break;
                 }
-                case "EnvObjects":
+                /*case "EnvObjects":
                 {
                     var broke = false;
-                    _rigidbodyManager.objects = collision.transform.GetComponentsInChildren<Rigidbody>();
-                    foreach (var obj in _rigidbodyManager.objects)
+                    rigidbodyManager.objects = collision.transform.GetComponentsInChildren<Rigidbody>();
+                    foreach (var obj in rigidbodyManager.objects)
                     {
                         if (obj.constraints == RigidbodyConstraints.FreezeAll)
                         {
@@ -72,12 +72,12 @@ public class Player : MonoBehaviour
                             objCollider.isTrigger = true;
                         }
                     }
-                    _rigidbodyManager.Initialize();
+                    rigidbodyManager.Initialize();
                     break;
-                }
+                }*/
                 case "Wall":
-                    _rigidbodyManager.objects = collision.transform.GetComponentsInChildren<Rigidbody>();
-                    foreach (var obj in _rigidbodyManager.objects)
+                    rigidbodyManager.objects = collision.transform.GetComponentsInChildren<Rigidbody>();
+                    foreach (var obj in rigidbodyManager.objects)
                     {
                         obj.constraints = RigidbodyConstraints.None;
                         var objCollider = obj.GetComponent<BoxCollider>();
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
                             objCollider.isTrigger = true;
                         }
                     }
-                    _rigidbodyManager.Initialize();
+                    rigidbodyManager.Initialize();
                     break;
             }
         }

@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Ground
   - Item
-  - EnvObjects
   - InventoryItem
   - EnvObjects
   - Wall
@@ -20,7 +19,7 @@ TagManager:
   - BreakableObj
   - Roof
   - Broken
-  - 
+  - HitObj
   - 
   - 
   - 

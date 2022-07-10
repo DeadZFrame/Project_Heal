@@ -30,7 +30,7 @@ public class Inventory
         _ıtemList.Remove(ıtem);
         
         InventoryUI.Instance.slots.Insert(0, ıtem.slot);
-        //ıtem.slot.sprite = null;
+        ıtem.slot.sprite = null;
         ıtem.slot = null;
         ItemAssets.Instance.keyCodes.Insert(0, ıtem.keyCode);
     }

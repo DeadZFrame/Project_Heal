@@ -11,7 +11,11 @@ public class Item
 {
     public enum ItemTypes
     {
-        Plank, Cable, Nails, Iron, Stone
+        Cable,
+        MetalPlate,
+        TeflonTape,
+        ElectricTape,
+        Switch,
     }
     
     public ItemTypes ıtemTypes;
@@ -24,11 +28,11 @@ public class Item
         switch (ıtemTypes)
         {
             default:
-            case ItemTypes.Plank: return ItemAssets.Instance.materials[0];
-            case ItemTypes.Cable: return ItemAssets.Instance.materials[1];
-            case ItemTypes.Nails: return ItemAssets.Instance.materials[2];
-            case ItemTypes.Iron: return ItemAssets.Instance.materials[3];
-            case ItemTypes.Stone: return ItemAssets.Instance.materials[4];
+            case ItemTypes.Cable: return ItemAssets.Instance.materials[0];
+            case ItemTypes.MetalPlate: return ItemAssets.Instance.materials[1];
+            case ItemTypes.TeflonTape: return ItemAssets.Instance.materials[2];
+            case ItemTypes.ElectricTape: return ItemAssets.Instance.materials[3];
+            case ItemTypes.Switch: return ItemAssets.Instance.materials[4];
         }
     }
     
@@ -37,11 +41,11 @@ public class Item
         switch (ıtemTypes)
         {
             default:
-            case ItemTypes.Plank: return InventoryUI.Instance.sprites[0];
-            case ItemTypes.Cable: return InventoryUI.Instance.sprites[1];
-            case ItemTypes.Nails: return InventoryUI.Instance.sprites[2];
-            case ItemTypes.Iron: return InventoryUI.Instance.sprites[3];
-            case ItemTypes.Stone: return InventoryUI.Instance.sprites[4];
+            case ItemTypes.Cable: return InventoryUI.Instance.sprites[0];
+            case ItemTypes.MetalPlate: return InventoryUI.Instance.sprites[1];
+            case ItemTypes.TeflonTape: return InventoryUI.Instance.sprites[2];
+            case ItemTypes.ElectricTape: return InventoryUI.Instance.sprites[3];
+            case ItemTypes.Switch: return InventoryUI.Instance.sprites[4];
         }
     }
 }

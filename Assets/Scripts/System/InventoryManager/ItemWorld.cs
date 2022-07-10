@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ItemWorld : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public class ItemWorld : MonoBehaviour
     private MeshFilter _meshFilter;
     private BoxCollider _coll;
     private Transform _trans;
+    private Rigidbody _rb;
 
     private void Awake()
     {
@@ -27,6 +30,21 @@ public class ItemWorld : MonoBehaviour
         _meshFilter = GetComponent<MeshFilter>();
         _meshRenderer = GetComponent<MeshRenderer>();
         _trans = GetComponent<Transform>();
+        _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        var random = Random.Range(0, 8);
+        var vector = random switch
+        {
+            0 => Vector3.back, 1 => Vector3.forward, 2 => Vector3.left, 3 => Vector3.right,
+            4 => Vector3.forward + Vector3.left, 5 => Vector3.forward + Vector3.right, 
+            6 => Vector3.back + Vector3.left, 7 => Vector3.back + Vector3.right,
+            _ => default
+        };
+
+        _rb.AddForce(vector * 2, ForceMode.Impulse);
     }
 
     private void SetItem(Item ıtem)

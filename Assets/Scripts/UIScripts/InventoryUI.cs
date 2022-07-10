@@ -54,7 +54,7 @@ public class InventoryUI : MonoBehaviour
             foreach (var slot in slots)
             {
                 ıtem.slot = slot;
-                //ıtem.slot.sprite = ıtem.GetSprite();
+                ıtem.slot.sprite = ıtem.GetSprite();
                 slots.Remove(slot);
                 break;
             }

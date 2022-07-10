@@ -1701,7 +1701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6007133324238722663
 Transform:
   m_ObjectHideFlags: 0
@@ -1731,12 +1731,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 0.9
   force: 1
-  objLayer:
+  hitObj:
     serializedVersion: 2
-    m_Bits: 64
-  layerMask:
+    m_Bits: 512
+  brokenObj:
     serializedVersion: 2
     m_Bits: 256
+  breakableObj:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &6015845479115907240
 GameObject:
   m_ObjectHideFlags: 0
@@ -2227,7 +2230,7 @@ MonoBehaviour:
   hand: {fileID: 6007133323438179565}
   hammer: {fileID: 6007133324238722662}
   moveSpeed: 8
-  jumpForce: 2
+  jumpForce: 3
   repairBar: {fileID: 8638214178715295840, guid: 62ba066e576cecd45b83a32b270c162c,
     type: 3}
 --- !u!54 &6007133322794880251

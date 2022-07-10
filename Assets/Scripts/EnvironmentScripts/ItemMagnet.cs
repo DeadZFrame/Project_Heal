@@ -3,23 +3,35 @@ using UnityEngine;
 
 public class ItemMagnet : MonoBehaviour
 {
-    private Transform _player;
-    private Vector3 _velocity = Vector3.zero;
+    private Player _player;
 
     private void Awake()
     {
-        _player = GameObject.Find("Player").GetComponent<Transform>();
+        _player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     private void FixedUpdate()
     {
         StartCoroutine(DelayMagnet());
+        StartCoroutine(Fix());
     }
-    
-    IEnumerator DelayMagnet()
+
+    private IEnumerator DelayMagnet()
     {
         yield return new WaitForSeconds(0.5f);
         var speed = 0.1f * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, _player.position, speed + 30f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, speed + 30f * Time.deltaTime);
+    }
+
+    private IEnumerator Fix()
+    {
+        yield return new WaitForSeconds(1f);
+        if (gameObject.GetComponent<BoxCollider>().bounds
+            .Intersects(_player.transform.GetComponent<BoxCollider>().bounds))
+        {
+            var ıtemWorld = gameObject.GetComponent<ItemWorld>();
+            _player.ınventory.AddItem(ıtemWorld.GetItem());
+            ıtemWorld.DestroySelf();
+        }
     }
 }

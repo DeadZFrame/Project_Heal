@@ -51,7 +51,7 @@ public class PlayerBase : MonoBehaviour
         Movement();
         CycleTroughInventory();
         Jump();
-        Attack();
+        Swing();
     }
     
     private Vector3 _direction, _vectorInput;
@@ -135,26 +135,29 @@ public class PlayerBase : MonoBehaviour
     public GameObject repairBar;
     private GameObject _bar;
     private bool _onAttack, _attacked;
+    private RigidbodyManager _rigidbodyManager;
 
-    private void Attack()
+    private void Swing()
     {
         if(!_onAttack) return;
         if(_attacked) return;
         var hammerPos = hammer.transform.position;
         
-        var objects = Physics.OverlapSphere(hammerPos, hammer.attackRange, hammer.objLayer);
-        foreach (var obj in objects)
+        var hitObj = Physics.OverlapSphere(hammerPos, hammer.attackRange, hammer.hitObj);
+        foreach (var obj in hitObj)
         {
             obj.GetComponent<Rigidbody>().AddForce(obj.transform.position - transform.position * hammer.force, ForceMode.Impulse);
         }
 
-        var brokeObj = Physics.OverlapSphere(hammerPos, hammer.attackRange, hammer.layerMask);
+        var brokeObj = Physics.OverlapSphere(hammerPos, hammer.attackRange, hammer.brokenObj);
         foreach (var obj in brokeObj)
         {
             repairBar.SetActive(true);
             _bar = repairBar;
             brokeObjects = obj;
         }
+
+        hammer.Break();
 
         if (_bar == null) return;
         _bar.GetComponent<RepairBar>().repairBar.value += 0.1f;
