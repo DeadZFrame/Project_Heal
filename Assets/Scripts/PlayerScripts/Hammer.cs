@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,7 @@ public class Hammer : MonoBehaviour
         foreach (var obj in breakableobj)
         {
             parent = obj.transform.parent;
+            obj.gameObject.layer = LayerMask.NameToLayer("HitObj");
         }
         var objects = parent.GetComponentsInChildren<Rigidbody>();
         
@@ -35,10 +37,10 @@ public class Hammer : MonoBehaviour
         {
             if (obj.constraints == RigidbodyConstraints.FreezeAll)
             {
-                if (!broke)
+                if (!broke && !SceneManager.GetActiveScene().name.Equals("Level01"))
                 {
                     var parentVector = obj.transform.GetComponentInParent<Transform>().position;
-                    var random = Random.Range(0, 6);
+                    var random = Random.Range(0, 5);
                     var ıtem = random switch
                     {
                         0 => new Item { ıtemTypes = Item.ItemTypes.Cable },
@@ -46,10 +48,14 @@ public class Hammer : MonoBehaviour
                         2 => new Item { ıtemTypes = Item.ItemTypes.ElectricTape },
                         3 => new Item { ıtemTypes = Item.ItemTypes.MetalPlate },
                         4 => new Item { ıtemTypes = Item.ItemTypes.TeflonTape },
-                        5 => new Item { ıtemTypes = Item.ItemTypes.Cable },
                         _ => throw new ArgumentOutOfRangeException()
                     };
                     ItemWorld.SpawnItemWorld(new Vector3(parentVector.x, parentVector.y, 1.5f), ıtem);
+                }
+                else if (!broke && SceneManager.GetActiveScene().name.Equals("Level01") && obj.transform.parent.name.Equals("Radio"))
+                {
+                    var parentVector = obj.transform.GetComponentInParent<Transform>().position;
+                    ItemWorld.SpawnItemWorld(new Vector3(parentVector.x, parentVector.y, 1.5f), new Item{ıtemTypes = Item.ItemTypes.Cable});
                 }
 
                 broke = true;

@@ -25,6 +25,10 @@ public class RepairBar : MonoBehaviour
             }
             repairBar.value -= 0.07f * Time.deltaTime;
         }
+        else
+        {
+            //Objective complete
+        }
         if(_playerBase.brokeObjects == null) return;
         repairBar.transform.position = Camera.main.WorldToScreenPoint(_playerBase.brokeObjects.transform.position);
     }

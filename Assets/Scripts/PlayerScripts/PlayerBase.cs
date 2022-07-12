@@ -187,6 +187,14 @@ public class PlayerBase : MonoBehaviour
     private KeyCode _key;
     private void CycleTroughInventory()
     {
+        foreach (var key in ItemAssets.Instance.keyCodes)
+        {
+            if (Input.GetKeyDown(key) && _player.ınventory.toggled)
+            {
+                _obj.DestroySelf();
+                _player.ınventory.ToggleItem();
+            }
+        }
         foreach (var getKey in ItemAssets.Instance.keyData)
         {
             if (!Input.GetKeyDown(getKey) || _player.ınventory.GetItemList().Count == 0) continue;
@@ -216,7 +224,6 @@ public class PlayerBase : MonoBehaviour
                         _obj.GetComponent<BoxCollider>().isTrigger = true;
                     }
                 }
-                
             }
             _key = getKey;
         }
