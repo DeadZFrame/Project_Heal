@@ -29,13 +29,15 @@ public class PlayerBase : MonoBehaviour
         _animator = gameObject.GetComponent<Animator>();
         _player = gameObject.GetComponent<Player>();
         _rb = GetComponent<Rigidbody>();
+        _repairManager = GameObject.Find("RepairManager").GetComponent<RepairManager>();
     }
-
+    
     private void FixedUpdate()
     {
         if (_player.ınventory.toggled)
         {
             hammer.transform.parent.gameObject.SetActive(false);
+            
             Throw();
         }
         else
@@ -136,6 +138,7 @@ public class PlayerBase : MonoBehaviour
     private GameObject _bar;
     private bool _onAttack, _attacked;
     private RigidbodyManager _rigidbodyManager;
+    private RepairManager _repairManager;
 
     private void Swing()
     {
@@ -149,6 +152,8 @@ public class PlayerBase : MonoBehaviour
             obj.GetComponent<Rigidbody>().AddForce(obj.transform.position - transform.position * hammer.force, ForceMode.Impulse);
         }
 
+        hammer.Break();
+
         var brokeObj = Physics.OverlapSphere(hammerPos, hammer.attackRange, hammer.brokenObj);
         foreach (var obj in brokeObj)
         {
@@ -157,12 +162,11 @@ public class PlayerBase : MonoBehaviour
             brokeObjects = obj;
         }
 
-        hammer.Break();
-
         if (_bar == null) return;
         _bar.GetComponent<RepairBar>().repairBar.value += 0.1f;
         _bar = null;
         _attacked = true;
+        
     }
 
     private void Throw()
@@ -174,7 +178,7 @@ public class PlayerBase : MonoBehaviour
         _obj.tag = "Item";
         _obj.GetComponent<BoxCollider>().isTrigger = false;
         _obj.GetComponent<Rigidbody>().useGravity = true;
-        _obj.GetComponent<Rigidbody>().AddForce(_direction * jumpForce/2, ForceMode.Impulse);
+        _obj.GetComponent<Rigidbody>().AddForce(_direction * jumpForce, ForceMode.Impulse);
                 
         _player.ınventory.RemoveItem(_ıtem);
         _player.ınventory.ToggleItem();
@@ -198,6 +202,7 @@ public class PlayerBase : MonoBehaviour
                     _obj.transform.parent = hand.transform;
                     _obj.tag = "InventoryItem";
                     _player.ınventory.ToggleItem();
+                    _obj.GetComponent<BoxCollider>().isTrigger = true;
                 }
                 else
                 {

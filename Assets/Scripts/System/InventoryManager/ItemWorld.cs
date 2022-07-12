@@ -31,20 +31,22 @@ public class ItemWorld : MonoBehaviour
         _meshRenderer = GetComponent<MeshRenderer>();
         _trans = GetComponent<Transform>();
         _rb = GetComponent<Rigidbody>();
+        _repairManager = GameObject.Find("RepairManager").GetComponent<RepairManager>();
     }
 
     private void Start()
     {
+        StartCoroutine(CanBeTaken(true));
         var random = Random.Range(0, 8);
         var vector = random switch
         {
             0 => Vector3.back, 1 => Vector3.forward, 2 => Vector3.left, 3 => Vector3.right,
             4 => Vector3.forward + Vector3.left, 5 => Vector3.forward + Vector3.right, 
             6 => Vector3.back + Vector3.left, 7 => Vector3.back + Vector3.right,
-            _ => default
+            _ => throw new ArgumentOutOfRangeException()
         };
 
-        _rb.AddForce(vector * 2, ForceMode.Impulse);
+        _rb.AddForce(vector * 5, ForceMode.Impulse);
     }
 
     private void SetItem(Item ıtem)
@@ -66,5 +68,28 @@ public class ItemWorld : MonoBehaviour
     public void DestroySelf()
     {
         gameObject.SetActive(false);
+    }
+
+    private RepairManager _repairManager;
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.transform.tag.Equals("Broken")) return;
+        foreach (var obj in _repairManager.brokenObjects)
+        {
+            if (!collision.transform.name.Equals(obj.name)) continue;
+            foreach (var uı in _repairManager.ımages)
+            {
+                if (!uı.name.Equals(gameObject.name)) continue;
+                Destroy(uı.gameObject);
+                DestroySelf();
+            }
+        }
+    }
+
+    [NonSerialized]public bool canBeTaken = false;
+    private IEnumerator CanBeTaken(bool var)
+    {
+        yield return new WaitForSeconds(1f);
+        canBeTaken = var;
     }
 }

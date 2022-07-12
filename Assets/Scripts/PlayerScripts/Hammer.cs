@@ -47,7 +47,7 @@ public class Hammer : MonoBehaviour
                         3 => new Item { ıtemTypes = Item.ItemTypes.MetalPlate },
                         4 => new Item { ıtemTypes = Item.ItemTypes.TeflonTape },
                         5 => new Item { ıtemTypes = Item.ItemTypes.Cable },
-                        _ => default
+                        _ => throw new ArgumentOutOfRangeException()
                     };
                     ItemWorld.SpawnItemWorld(new Vector3(parentVector.x, parentVector.y, 1.5f), ıtem);
                 }

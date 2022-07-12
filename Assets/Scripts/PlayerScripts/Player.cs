@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class Player : MonoBehaviour
 {
     private CameraBase _cameraBase;
-    [NonSerialized]public RigidbodyManager rigidbodyManager;
+    private RigidbodyManager _rigidbodyManager;
     private PlayerBase _playerBase;
 
     [SerializeField]private InventoryUI ınventoryUI;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
         ınventory = new Inventory();
         _playerBase = gameObject.GetComponent<PlayerBase>();
         if(GameObject.FindGameObjectWithTag("EnvObjects") != null)
-            rigidbodyManager = GameObject.FindGameObjectWithTag("EnvObjects").GetComponent<RigidbodyManager>();
+            _rigidbodyManager = GameObject.FindGameObjectWithTag("EnvObjects").GetComponent<RigidbodyManager>();
         _cameraBase = GameObject.Find("Main Camera").GetComponent<CameraBase>();
     }
 
@@ -76,8 +76,8 @@ public class Player : MonoBehaviour
                     break;
                 }*/
                 case "Wall":
-                    rigidbodyManager.objects = collision.transform.GetComponentsInChildren<Rigidbody>();
-                    foreach (var obj in rigidbodyManager.objects)
+                    _rigidbodyManager.objects = collision.transform.GetComponentsInChildren<Rigidbody>();
+                    foreach (var obj in _rigidbodyManager.objects)
                     {
                         obj.constraints = RigidbodyConstraints.None;
                         var objCollider = obj.GetComponent<BoxCollider>();
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
                             objCollider.isTrigger = true;
                         }
                     }
-                    rigidbodyManager.Initialize();
+                    _rigidbodyManager.Initialize();
                     break;
             }
         }
@@ -104,6 +104,7 @@ public class Player : MonoBehaviour
                     break;
                 }
                 case "Item":
+                    if(!collision.transform.GetComponent<ItemWorld>().canBeTaken) return;
                     collision.collider.isTrigger = true;
                     collision.transform.GetComponent<Rigidbody>().useGravity = false;
                     break;
@@ -117,7 +118,7 @@ public class Player : MonoBehaviour
         
         var ıtemWorld = other.GetComponent<ItemWorld>();
         var ıtemMagnet = other.gameObject.GetComponent<ItemMagnet>();
-        
+
         if(ınventory.GetItemList().Count > 5) return;
         
         if (ıtemMagnet.enabled)
