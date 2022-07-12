@@ -184,21 +184,20 @@ public class PlayerBase : MonoBehaviour
         _player.ınventory.ToggleItem();
     }
 
+    private KeyCode _key;
     private void CycleTroughInventory()
     {
         foreach (var getKey in ItemAssets.Instance.keyData)
         {
             if (!Input.GetKeyDown(getKey) || _player.ınventory.GetItemList().Count == 0) continue;
-            
             foreach (var ıtem in _player.ınventory.GetItemList())
             {
                 if (ıtem.keyCode != getKey) continue;
 
                 _ıtem = ıtem;
-                
                 if (!_player.ınventory.toggled)
                 {
-                    _obj = ItemWorld.SpawnItemWorld(Vector3.zero, new Item { ıtemTypes = ıtem.ıtemTypes});
+                    _obj = ItemWorld.SpawnItemWorld(Vector3.zero, new Item { ıtemTypes = ıtem.ıtemTypes });
                     _obj.transform.parent = hand.transform;
                     _obj.tag = "InventoryItem";
                     _player.ınventory.ToggleItem();
@@ -207,9 +206,19 @@ public class PlayerBase : MonoBehaviour
                 else
                 {
                     _obj.DestroySelf();
-                    _player.ınventory.ToggleItem();
+                    if(_key == getKey)
+                        _player.ınventory.ToggleItem();
+                    else
+                    {
+                        _obj = ItemWorld.SpawnItemWorld(Vector3.zero, new Item { ıtemTypes = ıtem.ıtemTypes });
+                        _obj.transform.parent = hand.transform;
+                        _obj.tag = "InventoryItem";
+                        _obj.GetComponent<BoxCollider>().isTrigger = true;
+                    }
                 }
+                
             }
+            _key = getKey;
         }
         if(_player.ınventory.toggled) _obj.transform.localPosition = new Vector3(0, 0, 0);
     }
