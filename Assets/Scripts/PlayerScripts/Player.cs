@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
                 case "Ground":
                 {
                     _playerBase.grounded = true;
-                    var colID = collision.transform.parent;
+                    var colID = collision.transform;
                     _cameraBase.floor = colID;
                     break;
                 }
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
                     break;
                 }*/
                 case "Wall":
-                    _rigidbodyManager.objects = collision.transform.GetComponentsInChildren<Rigidbody>();
+                    _rigidbodyManager.objects = collision.transform.GetComponents<Rigidbody>();
                     foreach (var obj in _rigidbodyManager.objects)
                     {
                         obj.constraints = RigidbodyConstraints.None;

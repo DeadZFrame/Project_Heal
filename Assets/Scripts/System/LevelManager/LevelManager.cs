@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    public Transform redButton;
+    public Transform redButton ,panel;
     public Button interact;
     private Player _player;
 
@@ -17,7 +17,13 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        if(SceneManager.GetActiveScene().name.Equals("Garage"))
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
+    
+    public enum SceneIndex
+    {
+        MainMenu, Garage, Level01, Level02, Level03
     }
 
     private void Update()
@@ -26,28 +32,45 @@ public class LevelManager : MonoBehaviour
         {
             levelMenu.SetActive(false);
         }
-        
-        Time.timeScale = levelMenu.activeInHierarchy ? 0f : 1f;
-        BigRedButton();
-    }
 
-    private void BigRedButton()
-    {
         if (SceneManager.GetActiveScene().name.Equals("Garage"))
         {
-            var distance = Vector3.Distance(_player.transform.position, redButton.transform.position);
-            if (distance < 4f)
+            BigRedButton();
+            Panel();
+        }
+        Time.timeScale = levelMenu.activeInHierarchy ? 0f : 1f;
+    }
+
+    [NonSerialized] public int sceneIndex;
+    [NonSerialized] public bool selectedScene = false;
+    
+    private void Panel()
+    {
+        var distance = Vector3.Distance(_player.transform.position, panel.transform.position);
+        if (distance < 6f)
+        {
+            interact.gameObject.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                interact.gameObject.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.F))
-                {
-                    levelMenu.SetActive(true);
-                }
+                levelMenu.SetActive(true);
             }
-            else
+        }
+    }
+    
+    private void BigRedButton()
+    {
+        var distance = Vector3.Distance(_player.transform.position, redButton.transform.position);
+        if (distance < 4f && selectedScene)
+        {
+            interact.gameObject.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                interact.gameObject.SetActive(false);
+                SceneManager.LoadSceneAsync(sceneIndex);
             }
+        }
+        else
+        {
+            interact.gameObject.SetActive(false);
         }
     }
 }

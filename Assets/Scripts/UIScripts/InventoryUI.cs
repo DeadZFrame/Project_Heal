@@ -13,7 +13,9 @@ public class InventoryUI : MonoBehaviour
     private Inventory _ınventory;
 
     public RectTransform[] slotGroup;
-    private Image[] _slots, _slots2;
+    private Image[] _slots;
+
+    [NonSerialized]public Image[] slotTemplates;
     
     public List<Image> slots;
     public Sprite[] sprites;
@@ -24,7 +26,7 @@ public class InventoryUI : MonoBehaviour
     {
         Instance = this;
         _slots = slotGroup[0].GetComponentsInChildren<Image>();
-        _slots2 = slotGroup[1].GetComponentsInChildren<Image>();
+        slotTemplates = slotGroup[1].GetComponentsInChildren<Image>();
         
         slots = new List<Image>();
         foreach (var slot in _slots)
@@ -32,82 +34,7 @@ public class InventoryUI : MonoBehaviour
             slots.Add(slot);
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            var slotTemp = _slots2[0];
-            if (slotTemp.sprite == selectedSlot)
-            {
-                slotTemp.sprite = normalSlot;
-                return;
-            }
-            slotTemp.sprite = selectedSlot;
-            foreach (var slot in _slots2)
-            {
-                if(slot == slotTemp) continue;
-                slot.sprite = normalSlot;
-            }
-        }if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            var slotTemp = _slots2[1];
-            if (slotTemp.sprite == selectedSlot)
-            {
-                slotTemp.sprite = normalSlot;
-                return;
-            }
-            slotTemp.sprite = selectedSlot;
-            foreach (var slot in _slots2)
-            {
-                if(slot == slotTemp) continue;
-                slot.sprite = normalSlot;
-            }
-        }if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            var slotTemp = _slots2[2];
-            if (slotTemp.sprite == selectedSlot)
-            {
-                slotTemp.sprite = normalSlot;
-                return;
-            }
-            slotTemp.sprite = selectedSlot;
-            foreach (var slot in _slots2)
-            {
-                if(slot == slotTemp) continue;
-                slot.sprite = normalSlot;
-            }
-        }if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            var slotTemp = _slots2[3];
-            if (slotTemp.sprite == selectedSlot)
-            {
-                slotTemp.sprite = normalSlot;
-                return;
-            }
-            slotTemp.sprite = selectedSlot;
-            foreach (var slot in _slots2)
-            {
-                if(slot == slotTemp) continue;
-                slot.sprite = normalSlot;
-            }
-        }if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            var slotTemp = _slots2[4];
-            if (slotTemp.sprite == selectedSlot)
-            {
-                slotTemp.sprite = normalSlot;
-                return;
-            }
-            slotTemp.sprite = selectedSlot;
-            foreach (var slot in _slots2)
-            {
-                if(slot == slotTemp) continue;
-                slot.sprite = normalSlot;
-            }
-        }
-    }
-
+    
     public void SetInventory(Inventory ınventory)
     {
         this._ınventory = ınventory;

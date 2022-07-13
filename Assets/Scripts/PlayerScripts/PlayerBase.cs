@@ -163,7 +163,7 @@ public class PlayerBase : MonoBehaviour
         }
 
         if (_bar == null) return;
-        _bar.GetComponent<RepairBar>().repairBar.value += 0.1f;
+        _bar.GetComponent<RepairBar>().repairBar.value += 0.2f;
         _bar = null;
         _attacked = true;
         
@@ -174,10 +174,10 @@ public class PlayerBase : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Q)) return;
         if (!_player.ınventory.toggled) return;
         
-        _obj.transform.parent = null;
-        _obj.tag = "Item";
         _obj.GetComponent<BoxCollider>().isTrigger = false;
         _obj.GetComponent<Rigidbody>().useGravity = true;
+        _obj.transform.parent = null;
+        _obj.tag = "Item";
         _obj.GetComponent<Rigidbody>().AddForce(_direction * jumpForce, ForceMode.Impulse);
                 
         _player.ınventory.RemoveItem(_ıtem);
@@ -195,33 +195,67 @@ public class PlayerBase : MonoBehaviour
                 _player.ınventory.ToggleItem();
             }
         }
-        foreach (var getKey in ItemAssets.Instance.keyData)
+
+        var keyData = ItemAssets.Instance.keyData;
+        foreach (var getKey in keyData)
         {
             if (!Input.GetKeyDown(getKey) || _player.ınventory.GetItemList().Count == 0) continue;
+            for (var i = 0; i < keyData.Count; i++)
+            {
+                if (getKey == keyData[i])
+                {
+                    InventoryUI.Instance.slotTemplates[i].sprite = InventoryUI.Instance.selectedSlot;
+                }
+                else
+                {
+                    InventoryUI.Instance.slotTemplates[i].sprite = InventoryUI.Instance.normalSlot;
+                }
+            }
             foreach (var ıtem in _player.ınventory.GetItemList())
             {
                 if (ıtem.keyCode != getKey) continue;
-
+                
+                var slotTemplates = InventoryUI.Instance.slotTemplates;
                 _ıtem = ıtem;
+                
                 if (!_player.ınventory.toggled)
                 {
+                    for (var i = 0; i < keyData.Count; i++)
+                    {
+                        slotTemplates[i].sprite = getKey == keyData[i] ? InventoryUI.Instance.selectedSlot : InventoryUI.Instance.normalSlot;
+                    }
+                    
                     _obj = ItemWorld.SpawnItemWorld(Vector3.zero, new Item { ıtemTypes = ıtem.ıtemTypes });
                     _obj.transform.parent = hand.transform;
                     _obj.tag = "InventoryItem";
                     _player.ınventory.ToggleItem();
                     _obj.GetComponent<BoxCollider>().isTrigger = true;
+                    _obj.GetComponent<Rigidbody>().useGravity = false;
                 }
                 else
                 {
                     _obj.DestroySelf();
-                    if(_key == getKey)
+                    if (_key == getKey)
+                    {
                         _player.ınventory.ToggleItem();
+                        
+                        foreach (var slotTemplate in slotTemplates)
+                        {
+                            slotTemplate.sprite = InventoryUI.Instance.normalSlot;
+                        }
+                    }
                     else
                     {
+                        for (var i = 0; i < keyData.Count; i++)
+                        {
+                            slotTemplates[i].sprite = getKey == keyData[i] ? InventoryUI.Instance.selectedSlot : InventoryUI.Instance.normalSlot;
+                        }
+                        
                         _obj = ItemWorld.SpawnItemWorld(Vector3.zero, new Item { ıtemTypes = ıtem.ıtemTypes });
                         _obj.transform.parent = hand.transform;
                         _obj.tag = "InventoryItem";
                         _obj.GetComponent<BoxCollider>().isTrigger = true;
+                        _obj.GetComponent<Rigidbody>().useGravity = false;
                     }
                 }
             }
