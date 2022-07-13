@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             levelMenu.SetActive(false);
+            Time.timeScale = levelMenu.activeInHierarchy ? 0f : 1f;
         }
 
         if (SceneManager.GetActiveScene().name.Equals("Garage"))
@@ -38,7 +39,6 @@ public class LevelManager : MonoBehaviour
             BigRedButton();
             Panel();
         }
-        Time.timeScale = levelMenu.activeInHierarchy ? 0f : 1f;
     }
 
     [NonSerialized] public int sceneIndex;
@@ -53,6 +53,7 @@ public class LevelManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 levelMenu.SetActive(true);
+                Time.timeScale = levelMenu.activeInHierarchy ? 0f : 1f;
             }
         }
     }

@@ -388,6 +388,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7223176266740276030}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CheckTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2921438293983687707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,6 +1962,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7093522265944211888, guid: 03d7eece651ad514fa3a1466a47f5f93,
+        type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 5976813521955226296}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d7eece651ad514fa3a1466a47f5f93, type: 3}
 --- !u!114 &7223176266740276030 stripped
@@ -2478,6 +2495,11 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6173543362966110525, guid: 9d761bea126718a4496e9565fc67d530,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7223176266740276030}
     - target: {fileID: 6587956376837978458, guid: 9d761bea126718a4496e9565fc67d530,
         type: 3}
       propertyPath: m_text
@@ -2902,6 +2924,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8605924544657672599}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5976813521955226296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2711038322763254575, guid: 9d761bea126718a4496e9565fc67d530,
+    type: 3}
+  m_PrefabInstance: {fileID: 8605924544657672599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6125919194759999354 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2480852051371255533, guid: 9d761bea126718a4496e9565fc67d530,

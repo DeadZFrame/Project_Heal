@@ -19,8 +19,13 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             pauseMenu.SetActive(!pauseMenu.activeInHierarchy);
+            Time.timeScale = pauseMenu.activeInHierarchy ? 0f : 1f;
         }
-        
+    }
+
+    public void CheckTime()
+    {
+        Time.timeScale = _levelManager.levelMenu.activeInHierarchy ? 0f : 1f;
         Time.timeScale = pauseMenu.activeInHierarchy ? 0f : 1f;
     }
 
