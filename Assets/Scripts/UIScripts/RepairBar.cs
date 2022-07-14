@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class RepairBar : MonoBehaviour
@@ -13,6 +10,12 @@ public class RepairBar : MonoBehaviour
     {
         repairBar = gameObject.GetComponent<Slider>();
         _playerBase = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBase>();
+    }
+
+    [NonSerialized] public bool repaired;
+    private void Start()
+    {
+        repaired = false;
     }
 
     private void Update()
@@ -27,7 +30,7 @@ public class RepairBar : MonoBehaviour
         }
         else
         {
-            //Objective complete
+            repaired = true;
         }
         if(_playerBase.brokeObjects == null) return;
         repairBar.transform.position = Camera.main.WorldToScreenPoint(_playerBase.brokeObjects.transform.position);

@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -15,6 +14,8 @@ public class Player : MonoBehaviour
     [SerializeField]private InventoryUI ınventoryUI;
 
     public Inventory ınventory;
+
+    [NonSerialized] public int level = (int)LevelManager.SceneIndex.MainMenu;
     
     private void Awake()
     {
@@ -30,11 +31,31 @@ public class Player : MonoBehaviour
     {
         ınventoryUI.SetInventory(ınventory);
         _materialList = new List<Material>();
+
+        _repairBar = _playerBase.repairBar.GetComponent<RepairBar>();
     }
 
     private void FixedUpdate()
     {
         XRay();
+    }
+
+    private RepairBar _repairBar;
+    public StarsManager starsManager;
+    private void Update()
+    {
+        if (_repairBar.repaired)
+        {
+            _levelManager.starsForThisLevel += 1;
+            _repairBar.repaired = false;
+            _repairBar.repairBar.value = 0f;
+            starsManager.ChangeSprite();
+            level += 1;
+            if (SceneManager.GetActiveScene().buildIndex == (int)LevelManager.SceneIndex.Tutorial)
+            {
+                SceneManager.LoadScene((int)LevelManager.SceneIndex.Level01);
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -116,27 +137,35 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Star"))
+        switch (other.tag)
         {
-            _levelManager.starsForThisLevel += 1;
-        }
-        if (!other.tag.Equals("Item")) return;
-        
-        var ıtemWorld = other.GetComponent<ItemWorld>();
-        var ıtemMagnet = other.gameObject.GetComponent<ItemMagnet>();
+            case "Star":
+                _levelManager.starsForThisLevel += 1;
+                _levelManager.ManageStars();
+                other.gameObject.SetActive(false);
+                starsManager.ChangeSprite();
+                break;
+            
+    
+            case "Item":
+                var ıtemWorld = other.GetComponent<ItemWorld>();
+                var ıtemMagnet = other.gameObject.GetComponent<ItemMagnet>();
 
-        if(ınventory.GetItemList().Count > 5) return;
+                if(ınventory.GetItemList().Count > 5) return;
         
-        if (ıtemMagnet.enabled)
-        {
-            if (ıtemWorld == null) return;
-            ınventory.AddItem(ıtemWorld.GetItem());
-            ıtemWorld.DestroySelf();
+                if (ıtemMagnet.enabled)
+                {
+                    if (ıtemWorld == null) return;
+                    ınventory.AddItem(ıtemWorld.GetItem());
+                    ıtemWorld.DestroySelf();
+                }
+                else
+                {
+                    ıtemMagnet.enabled = true;
+                }
+                break;
         }
-        else
-        {
-            ıtemMagnet.enabled = true;
-        }
+        
     }
     
     private RaycastHit _hitInfo;

@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class Hammer : MonoBehaviour
@@ -37,7 +33,7 @@ public class Hammer : MonoBehaviour
         {
             if (obj.constraints == RigidbodyConstraints.FreezeAll)
             {
-                if (!broke && !SceneManager.GetActiveScene().name.Equals("Level01"))
+                if (!broke && SceneManager.GetActiveScene().buildIndex != (int)LevelManager.SceneIndex.Tutorial)
                 {
                     var parentVector = obj.transform.GetComponentInParent<Transform>().position;
                     var random = Random.Range(0, 5);
@@ -52,7 +48,7 @@ public class Hammer : MonoBehaviour
                     };
                     ItemWorld.SpawnItemWorld(new Vector3(parentVector.x, parentVector.y, 1.5f), ıtem);
                 }
-                else if (!broke && SceneManager.GetActiveScene().name.Equals("Level01") && obj.transform.parent.name.Equals("Radio"))
+                else if (!broke && SceneManager.GetActiveScene().buildIndex == (int)LevelManager.SceneIndex.Tutorial && obj.transform.parent.name.Equals("Radio"))
                 {
                     var parentVector = obj.transform.GetComponentInParent<Transform>().position;
                     ItemWorld.SpawnItemWorld(new Vector3(parentVector.x, parentVector.y, 1.5f), new Item{ıtemTypes = Item.ItemTypes.Cable});
