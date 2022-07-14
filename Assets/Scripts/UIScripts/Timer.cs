@@ -14,7 +14,7 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name.Equals("Level01"))
+        if (SceneManager.GetActiveScene().buildIndex == (int)LevelManager.SceneIndex.Tutorial)
         {
             _timer = 300;
             _timeIsRunning = true;
@@ -23,7 +23,7 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name.Equals("Level01"))
+        if (SceneManager.GetActiveScene().buildIndex == (int)LevelManager.SceneIndex.Tutorial)
         {
             ManageTime();   
         }

@@ -47,20 +47,22 @@ public class RepairManager : MonoBehaviour
         throwUI.gameObject.SetActive(_player.ınventory.toggled);
     }
 
-    private float _distance;
+    [NonSerialized]public float distance;
 
     private void ManageUI()
     {
         foreach (var obj in brokenObjects)
         {
-            _distance = Vector3.Distance(_player.transform.position, obj.transform.position);
+            distance = Vector3.Distance(_player.transform.position, obj.transform.position);
             foreach (var part in missingParts)
             {
-                if (_distance < 4f)
+                if (distance < 4f)
                 {
-                    if (!part.activeInHierarchy && part.GetComponentsInChildren<Transform>().Length != 1)
+                    if (!part.activeInHierarchy && part.GetComponentsInChildren<Transform>().Length != 0)
+                    {
                         interact.gameObject.SetActive(true);
-
+                    }
+                    
                     part.transform.position = Camera.main.WorldToScreenPoint(obj.transform.position + offset);
 
                     if (!Input.GetKeyDown(KeyCode.F)) return;

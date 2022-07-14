@@ -23,12 +23,14 @@ public class UIManager : MonoBehaviour
             pauseMenu.SetActive(!pauseMenu.activeInHierarchy);
             Time.timeScale = pauseMenu.activeInHierarchy ? 0f : 1f;
         }
-        CheckTime();
+        
         if (SceneManager.GetActiveScene().buildIndex is not (int)LevelManager.SceneIndex.MainMenu and not (int)LevelManager.SceneIndex.CutScene && _resetSaveGame)
         {
             _levelManager.player.level = (int)LevelManager.SceneIndex.MainMenu;
             _resetSaveGame = false;
         }
+        
+        CheckTime();
     }
 
     public void CheckTime()
@@ -82,6 +84,7 @@ public class UIManager : MonoBehaviour
 
     public void LoadLevel01()
     {
+        if (_levelManager.player.level != (int)LevelManager.SceneIndex.Level01) return;
         _levelManager.sceneIndex = (int)LevelManager.SceneIndex.Level01;
         _levelManager.selectedScene = true;
         _levelManager.levelMenu.SetActive(false);

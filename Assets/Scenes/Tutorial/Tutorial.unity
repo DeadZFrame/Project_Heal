@@ -214,6 +214,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 578188333476739325, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Mission2
+      objectReference: {fileID: 0}
     - target: {fileID: 849750639290965980, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -529,6 +534,16 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: dialogue.Array.data[0]
+      value: '- Fix the TV'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016233801492106615, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Mission1
+      objectReference: {fileID: 0}
     - target: {fileID: 7640573661666660592, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
       propertyPath: m_IsActive
@@ -584,6 +599,16 @@ PrefabInstance:
       propertyPath: mailBox
       value: 
       objectReference: {fileID: 9004560535741949787}
+    - target: {fileID: 8605924542997305885, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: mail.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8605924542997305885, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: mail.Array.data[0]
+      value: 
+      objectReference: {fileID: 660987626}
     - target: {fileID: 8605924543980998626, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
       propertyPath: m_Enabled
@@ -660,6 +685,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 293a649408ae1e6499bca64008a55198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &660987626 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8261225261378001877, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 229031641}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1182445832

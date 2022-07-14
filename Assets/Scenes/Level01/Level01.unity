@@ -861,6 +861,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4064478930378708297, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_Name
+      value: MailTemplate1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064478930378708297, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4449045165424749203, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -981,6 +991,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7621186467064619466, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640573661666660592, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7740556959350786775, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1025,6 +1045,25 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149119332347063519, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_text
+      value: 'Dear Fix Fixer,
+
+
+
+        While my neighbor cooking for me the <b>aspirator</b>
+        started to sound strange and <b>stopped working</b> properly. But after that
+        incident, that night <b>master bathrooms sink</b> started to <b>leaking</b>
+        and making noises even disturbing my sleep. Hope you will <b>fix it</b>.
+
+
+
+        Sincerely,
+
+        Suzanne
+        Stubblefield'
       objectReference: {fileID: 0}
     - target: {fileID: 8475701606033605794, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
@@ -35660,8 +35699,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313788321514172845}
   m_Mesh: {fileID: -4486202719300365111, guid: 201a4b4f53908314e966d94b2f3e73a4, type: 3}
---- !u!65 &6630636632961973941
-BoxCollider:
+--- !u!64 &6630636632961973941
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -35670,9 +35709,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.06495589, y: 1.9909434, z: 1.3950386}
-  m_Center: {x: -0.0000000037252903, y: -0.14184475, z: 0.006934732}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4486202719300365111, guid: 201a4b4f53908314e966d94b2f3e73a4, type: 3}
 --- !u!4 &6640693564965760310
 Transform:
   m_ObjectHideFlags: 0

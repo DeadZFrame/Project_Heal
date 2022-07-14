@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,8 +16,11 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
+        _repairManager = GameObject.Find("RepairManager").GetComponent<RepairManager>();
         if(SceneManager.GetActiveScene().buildIndex is not (int)SceneIndex.MainMenu and not (int)SceneIndex.CutScene)
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        
+        _dialogManager = GameObject.Find("DialogManager").GetComponent<DialogManager>();
     }
     
     public enum SceneIndex
@@ -89,6 +93,10 @@ public class LevelManager : MonoBehaviour
     }
 
     public GameObject mailBoxUI;
+    public TextMeshProUGUI[] mail;
+        
+    private RepairManager _repairManager;
+    private DialogManager _dialogManager;
     
     private void MailBox()
     {
@@ -100,11 +108,13 @@ public class LevelManager : MonoBehaviour
             {
                 //Open MailBox menu and set Time.scale to zero
                 mailBoxUI.SetActive(true);
+                TextWriter.WriteText_Static(mail[0], _dialogManager.dialogue[0], .1f, true);
             }
         }
         else
         {
-            interact.gameObject.SetActive(false);
+            if(_repairManager.distance > 4f)
+                interact.gameObject.SetActive(false);
         }
     }
     
