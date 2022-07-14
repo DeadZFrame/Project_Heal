@@ -1678,7 +1678,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6007133323438179564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2146,6 +2146,7 @@ GameObject:
   - component: {fileID: 6889652284365795752}
   - component: {fileID: 6007133322794880251}
   - component: {fileID: 6007133322794880250}
+  - component: {fileID: 5922323027703322655}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2210,6 +2211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   "\u0131nventoryUI": {fileID: 0}
+  starsManager: {fileID: 0}
   roof:
     serializedVersion: 2
     m_Bits: 128
@@ -2262,6 +2264,14 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.12305798, y: 0.50593203, z: 0.24469426}
   m_Center: {x: -0.006563967, y: 0.24703425, z: 0.041645475}
+--- !u!81 &5922323027703322655
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6889652284365795751}
+  m_Enabled: 1
 --- !u!1 &6949110691695789596
 GameObject:
   m_ObjectHideFlags: 0

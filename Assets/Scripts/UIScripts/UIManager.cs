@@ -74,6 +74,11 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OpenPauseMenu()
+    {
+        pauseMenu.SetActive(true);
+    }
     
     public void LoadTutorial()
     {

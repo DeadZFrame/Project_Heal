@@ -469,10 +469,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 4449045165424749202, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+    - target: {fileID: 4449045165424749201, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
-      propertyPath: m_RenderPostProcessing
-      value: 1
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4976063519386890776, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
@@ -534,10 +534,35 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5814954059127993769, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 60.000244
+      objectReference: {fileID: 0}
     - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
       propertyPath: dialogue.Array.data[0]
-      value: '- Fix the TV'
+      value: '- Repair the <b>TV'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470261395800086698, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470261395800086698, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470261395800086698, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470261395800086698, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7016233801492106615, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
@@ -588,6 +613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818153589627842525, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8475701606033605794, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
@@ -790,7 +820,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -4482,7 +4512,7 @@ GameObject:
   - component: {fileID: 7966682438706340701}
   - component: {fileID: 8132935667744942494}
   - component: {fileID: 8132935667744942493}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: Radio01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

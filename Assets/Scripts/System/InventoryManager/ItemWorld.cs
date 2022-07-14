@@ -78,7 +78,8 @@ public class ItemWorld : MonoBehaviour
             foreach (var uı in _repairManager.ımages)
             {
                 if (!uı.name.Equals(gameObject.name)) continue;
-                Destroy(uı.transform.parent.gameObject);
+                //Destroy(uı.transform.parent.gameObject);
+                _repairManager.ımages.Remove(uı);
                 Destroy(uı.gameObject);
                 DestroySelf();
             }

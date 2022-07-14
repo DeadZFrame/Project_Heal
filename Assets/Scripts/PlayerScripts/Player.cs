@@ -103,12 +103,13 @@ public class Player : MonoBehaviour
                     foreach (var obj in _rigidbodyManager.objects)
                     {
                         obj.constraints = RigidbodyConstraints.None;
-                        var objCollider = obj.GetComponent<BoxCollider>();
+                        obj.gameObject.layer = LayerMask.NameToLayer("HitObj");
+                        /*var objCollider = obj.GetComponent<BoxCollider>();
                         if (objCollider.bounds
                             .Intersects(gameObject.GetComponent<BoxCollider>().bounds))
                         {
                             objCollider.isTrigger = true;
-                        }
+                        }*/
                     }
                     _rigidbodyManager.Initialize();
                     break;

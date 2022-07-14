@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,31 +13,40 @@ public class RepairManager : MonoBehaviour
     public Button interact;
     public Button throwUI;
     
-    [NonSerialized]public Image[] ımages;
+    [NonSerialized]public List<Image> ımages;
 
     public Vector3 offset;
 
-    public enum Objects
+    private enum Objects
     {
-        TV
+        TV, Cook, Sink,
     }
 
-    private void Awake()
+    private void Awake() 
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         brokenObjects = GameObject.FindGameObjectsWithTag("Broken");
-        
-        foreach (var part in missingParts)
-        {
-            ımages = part.GetComponentsInChildren<Image>();
-        }
-        
+
         foreach (var obj in brokenObjects)
         {
             obj.AddComponent<BrokenObjWorld>();
             if(!obj.name.Equals("TV"))
             {
                 missingParts[(int)Objects.TV].transform.position = Camera.main.WorldToScreenPoint(obj.transform.position);
+            }
+        }
+    }
+
+    private void Start()
+    {
+        ımages = new List<Image>();
+
+        foreach (var part in missingParts)
+        {
+            var ımg = part.GetComponentsInChildren<Image>();
+            foreach (var t in ımg)
+            {
+                ımages.Add(t);
             }
         }
     }

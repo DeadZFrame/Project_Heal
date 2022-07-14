@@ -14,10 +14,13 @@ public class BrokenObjWorld : MonoBehaviour
 
     private void Update()
     {
-        var uı = _repairManager.missingParts[(int)RepairManager.Objects.TV].GetComponentsInChildren<Transform>();
-        if (uı.Length == 1)
+        foreach (var part in _repairManager.missingParts)
         {
-            gameObject.layer = LayerMask.NameToLayer("Broken");
+            var uı = part.GetComponentsInChildren<Transform>();
+            if (uı.Length == 1)
+            {
+                gameObject.layer = LayerMask.NameToLayer("Broken");
+            }
         }
     }
 }
