@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject pauseMenu;
     public Button returnToGarage;
-    
+
     private LevelManager _levelManager;
 
     private void Awake()

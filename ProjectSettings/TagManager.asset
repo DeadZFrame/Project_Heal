@@ -10,6 +10,7 @@ TagManager:
   - EnvObjects
   - Wall
   - Broken
+  - Star
   layers:
   - Default
   - TransparentFX

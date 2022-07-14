@@ -41,6 +41,7 @@ public class LevelManager : MonoBehaviour
         else if(SceneManager.GetActiveScene().buildIndex is not ((int)SceneIndex.MainMenu or (int)SceneIndex.Garage))
         {
             MailBox();
+            ManageStars();
         }
     }
 
@@ -48,12 +49,12 @@ public class LevelManager : MonoBehaviour
     [NonSerialized] public int starsForThisLevel;
     private void ManageStars()
     {
-        
+        //If level ends 
+        //_totalStars += starsForThisLevel;
     }
 
-    [NonSerialized] public int sceneIndex;
-    [NonSerialized] public bool selectedScene = false;
-
+    public GameObject mailBoxUI;
+    
     private void MailBox()
     {
         var distance = Vector3.Distance(_player.transform.position, mailBox.position);
@@ -63,6 +64,7 @@ public class LevelManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 //Open MailBox menu and set Time.scale to zero
+                mailBoxUI.SetActive(true);
             }
         }
         else
@@ -70,6 +72,9 @@ public class LevelManager : MonoBehaviour
             interact.gameObject.SetActive(false);
         }
     }
+    
+    [NonSerialized] public int sceneIndex;
+    [NonSerialized] public bool selectedScene = false;
     
     private void Panel()
     {

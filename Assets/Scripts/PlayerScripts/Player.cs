@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
     {
         if (other.tag.Equals("Star"))
         {
-            //_levelManager.totalStars += 1;
+            _levelManager.starsForThisLevel += 1;
         }
         if (!other.tag.Equals("Item")) return;
         
