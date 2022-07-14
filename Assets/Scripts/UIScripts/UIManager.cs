@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public Button returnToGarage;
+    
     private LevelManager _levelManager;
 
     private void Awake()
@@ -16,17 +19,31 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(Time.timeScale);
+        returnToGarage.interactable = SceneManager.GetActiveScene().buildIndex != (int)LevelManager.SceneIndex.Garage;
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             pauseMenu.SetActive(!pauseMenu.activeInHierarchy);
             Time.timeScale = pauseMenu.activeInHierarchy ? 0f : 1f;
         }
+        CheckTime();
     }
 
     public void CheckTime()
     {
-        Time.timeScale = _levelManager.levelMenu.activeInHierarchy ? 0f : 1f;
-        Time.timeScale = pauseMenu.activeInHierarchy ? 0f : 1f;
+        if (_levelManager.levelMenu.activeInHierarchy)
+        {
+            Time.timeScale = 0f;
+        }
+        else if (pauseMenu.activeInHierarchy)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     public void NewGame()

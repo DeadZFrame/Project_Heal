@@ -802,6 +802,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7223176266740276030}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CheckTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5320285916356867981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,6 +1476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   redButton: {fileID: 0}
   panel: {fileID: 0}
+  mailBox: {fileID: 0}
   interact: {fileID: 6125919194759999354}
   levelMenu: {fileID: 8605924543980998636}
 --- !u!1 &8605924543980998636
@@ -1907,6 +1920,11 @@ PrefabInstance:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 1378921415168022515}
+    - target: {fileID: 1392599980715050830, guid: 03d7eece651ad514fa3a1466a47f5f93,
+        type: 3}
+      propertyPath: returnToGarage
+      value: 
+      objectReference: {fileID: 8801175923437887093}
     - target: {fileID: 1392599980715050831, guid: 03d7eece651ad514fa3a1466a47f5f93,
         type: 3}
       propertyPath: m_RootOrder
@@ -2344,6 +2362,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -470
       objectReference: {fileID: 0}
+    - target: {fileID: 957696728924854242, guid: 9d761bea126718a4496e9565fc67d530,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7223176266740276030}
     - target: {fileID: 1273133273424004633, guid: 9d761bea126718a4496e9565fc67d530,
         type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -2815,6 +2838,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 7223176266740276030}
+    - target: {fileID: 7537085396430931451, guid: 9d761bea126718a4496e9565fc67d530,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7223176266740276030}
     - target: {fileID: 7702580060800566286, guid: 9d761bea126718a4496e9565fc67d530,
         type: 3}
       propertyPath: m_IsActive
@@ -2951,6 +2979,18 @@ MonoBehaviour:
 --- !u!114 &8213279946546284909 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 474298936016355578, guid: 9d761bea126718a4496e9565fc67d530,
+    type: 3}
+  m_PrefabInstance: {fileID: 8605924544657672599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8801175923437887093 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 957696728924854242, guid: 9d761bea126718a4496e9565fc67d530,
     type: 3}
   m_PrefabInstance: {fileID: 8605924544657672599}
   m_PrefabAsset: {fileID: 0}

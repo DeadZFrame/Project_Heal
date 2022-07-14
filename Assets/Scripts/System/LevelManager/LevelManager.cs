@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    public Transform redButton ,panel;
+    public Transform redButton ,panel, mailBox;
     public Button interact;
     private Player _player;
 
@@ -17,8 +17,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        if(SceneManager.GetActiveScene().name.Equals("Garage"))
-            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
     
     public enum SceneIndex
@@ -34,19 +33,47 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = levelMenu.activeInHierarchy ? 0f : 1f;
         }
 
-        if (SceneManager.GetActiveScene().name.Equals("Garage"))
+        if (SceneManager.GetActiveScene().buildIndex == (int)SceneIndex.Garage)
         {
             BigRedButton();
             Panel();
         }
+        else if(SceneManager.GetActiveScene().buildIndex is not ((int)SceneIndex.MainMenu or (int)SceneIndex.Garage))
+        {
+            MailBox();
+        }
+    }
+
+    private int _totalStars;
+    [NonSerialized] public int starsForThisLevel;
+    private void ManageStars()
+    {
+        
     }
 
     [NonSerialized] public int sceneIndex;
     [NonSerialized] public bool selectedScene = false;
+
+    private void MailBox()
+    {
+        var distance = Vector3.Distance(_player.transform.position, mailBox.position);
+        if (distance < 4f)
+        {
+            interact.gameObject.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                //Open MailBox menu and set Time.scale to zero
+            }
+        }
+        else
+        {
+            interact.gameObject.SetActive(false);
+        }
+    }
     
     private void Panel()
     {
-        var distance = Vector3.Distance(_player.transform.position, panel.transform.position);
+        var distance = Vector3.Distance(_player.transform.position, panel.position);
         if (distance < 6f)
         {
             interact.gameObject.SetActive(true);
@@ -60,7 +87,7 @@ public class LevelManager : MonoBehaviour
     
     private void BigRedButton()
     {
-        var distance = Vector3.Distance(_player.transform.position, redButton.transform.position);
+        var distance = Vector3.Distance(_player.transform.position, redButton.position);
         if (distance < 4f && selectedScene)
         {
             interact.gameObject.SetActive(true);

@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private CameraBase _cameraBase;
     private RigidbodyManager _rigidbodyManager;
     private PlayerBase _playerBase;
+    private LevelManager _levelManager;
 
     [SerializeField]private InventoryUI ınventoryUI;
 
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
         if(GameObject.FindGameObjectWithTag("EnvObjects") != null)
             _rigidbodyManager = GameObject.FindGameObjectWithTag("EnvObjects").GetComponent<RigidbodyManager>();
         _cameraBase = GameObject.Find("Main Camera").GetComponent<CameraBase>();
+        _levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
     }
 
     private void Start()
@@ -114,6 +116,10 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag.Equals("Star"))
+        {
+            //_levelManager.totalStars += 1;
+        }
         if (!other.tag.Equals("Item")) return;
         
         var ıtemWorld = other.GetComponent<ItemWorld>();
