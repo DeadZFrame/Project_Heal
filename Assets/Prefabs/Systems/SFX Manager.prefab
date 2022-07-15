@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1547752620081805088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1547752620081805094}
+  - component: {fileID: 1547752620081805095}
+  m_Layer: 0
+  m_Name: SFX Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1547752620081805094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547752620081805088}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1547752620081805095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547752620081805088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da12506040007334c997651fd0e50ab0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Embark
+    clip: {fileID: 8300000, guid: 88211fde8530fb3469f51c1a9e6bdb4e, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+  - name: Radio
+    clip: {fileID: 8300000, guid: 8103cd8b78148b740831ee5861fcf63b, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+  - name: Water
+    clip: {fileID: 8300000, guid: 6f0ddaca49830c34fba3cd8ca62b8bea, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+  soundArray:
+    name: Hit
+    clips:
+    - {fileID: 8300000, guid: 5dc0794037b0854499d9122c38fbe2b9, type: 3}
+    - {fileID: 8300000, guid: 0eb6db026e91dae43a8a1b96133cfef6, type: 3}
+    - {fileID: 8300000, guid: 4cf48b54616288e44bda4cf34c046e85, type: 3}
+    - {fileID: 8300000, guid: bc87d92f04fc7614484bb1f8b7c519f4, type: 3}
+    - {fileID: 8300000, guid: ad9ff96ccb421384dae5d437beeb3bd1, type: 3}
+    - {fileID: 8300000, guid: a4dfce5bfd965c74eb44313400ab0ff7, type: 3}
+    - {fileID: 8300000, guid: e1e629f92544c7747bc4e4346dabe9dc, type: 3}
+    - {fileID: 8300000, guid: a49ce155ca6653c4b9dc44e75eb189a8, type: 3}
+    - {fileID: 8300000, guid: 3e06a25239c19ed4189c3262e6c74df9, type: 3}
+    - {fileID: 8300000, guid: 96d838bc44218ef469a3524ca2eeeff2, type: 3}
+    - {fileID: 8300000, guid: f782f7614123378478743b78ff90c4e9, type: 3}
+    - {fileID: 8300000, guid: 248dec5acb332ad448d0e44ee6ef7eb7, type: 3}
+    volume: 0.2
+    audioSource: {fileID: 0}

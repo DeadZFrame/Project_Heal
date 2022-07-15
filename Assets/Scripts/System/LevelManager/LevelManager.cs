@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour
     public GameObject levelMenu;
 
     private Vector3 _interactOffset;
+    
+    [NonSerialized] public int level;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class LevelManager : MonoBehaviour
             _dialogManager = GameObject.Find("DialogManager").GetComponent<DialogManager>();
             _repairManager = GameObject.Find("RepairManager").GetComponent<RepairManager>();
         }
+        //PlayerPrefs.DeleteAll();
     }
     
     public enum SceneIndex
@@ -33,7 +36,7 @@ public class LevelManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == (int)SceneIndex.CutScene)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene((int)SceneIndex.Garage);
             }
@@ -59,28 +62,34 @@ public class LevelManager : MonoBehaviour
             MailBox();
             ManageStars();
         }
-        if(SceneManager.GetActiveScene(). buildIndex is not (int)SceneIndex.MainMenu and not (int)SceneIndex.CutScene)
-        {
-            ManageLevels();
-        }
+        ManageLevels();
+    }
+    
+    public static void Save(string keyName,int level)
+    {
+        PlayerPrefs.SetInt(keyName, level);
+        PlayerPrefs.Save();
+    }
+
+    public static int Load(string keyName)
+    {
+        return PlayerPrefs.GetInt(keyName);
     }
 
     public Button continueOnMainMenu, level01Menu;
+    public Sprite enabledSprite, disabledSprite;
     
     private void ManageLevels()
     {
-        if (player.level > (int)SceneIndex.CutScene)
+        if (level > 0)
         {
             continueOnMainMenu.interactable = true;
-        }
-        else if (player.level > (int)SceneIndex.Tutorial)
-        {
-            level01Menu.interactable = true;
+            level01Menu.gameObject.GetComponent<Image>().sprite = enabledSprite;
         }
         else
         {
             continueOnMainMenu.interactable = false;
-            level01Menu.interactable = false;
+            level01Menu.gameObject.GetComponent<Image>().sprite = disabledSprite;
         }
     }
     
@@ -111,7 +120,7 @@ public class LevelManager : MonoBehaviour
                 mailBoxUI.SetActive(true);
                 if (mail.Length != 0)
                 {
-                    TextWriter.WriteText_Static(mail[0], _dialogManager.dialogue[0], .1f, true);
+                    TextWriter.WriteText_Static(mail[0], _dialogManager.dialogue[0], .05f, true);
                     /*if (SceneManager.GetActiveScene().buildIndex == (int)SceneIndex.Level01)
                     {
                         mail[1].gameObject.SetActive(true);
@@ -152,6 +161,7 @@ public class LevelManager : MonoBehaviour
             interact.gameObject.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F))
             {
+                SFX_Manager.instance.Play("Embark");
                 SceneManager.LoadSceneAsync(sceneIndex);
             }
         }

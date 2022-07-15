@@ -24,6 +24,7 @@ public class Hammer : MonoBehaviour
         var parent = transform;
         foreach (var obj in breakableobj)
         {
+            SFX_Manager.instance.PlayArray("Hit");
             parent = obj.transform.parent;
             obj.gameObject.layer = LayerMask.NameToLayer("HitObj");
         }
@@ -62,7 +63,7 @@ public class Hammer : MonoBehaviour
                             var vector = obj.transform.position;
                             ItemWorld.SpawnItemWorld(new Vector3(vector.x, vector.y, 1.5f), new Item{ıtemTypes = Item.ItemTypes.TeflonTape});
                         }
-                        else if(obj.transform.parent.name.Equals("MakeUpLight"))
+                        else if(obj.transform.parent.name.Equals("ChairSpawn"))
                         {
                             var parentVector = obj.transform.GetComponentInParent<Transform>().position;
                             ItemWorld.SpawnItemWorld(new Vector3(parentVector.x, parentVector.y, 1.5f), new Item{ıtemTypes = Item.ItemTypes.Cable});
@@ -72,7 +73,7 @@ public class Hammer : MonoBehaviour
                             var parentVector = obj.transform.GetComponentInParent<Transform>().position;
                             ItemWorld.SpawnItemWorld(new Vector3(parentVector.x, parentVector.y, 1.5f), new Item{ıtemTypes = Item.ItemTypes.MetalPlate});
                         }
-                        else
+                        /*else if(obj.transform.parent.name.Equals("Crate1"))
                         {
                             var parentVector = obj.transform.GetComponentInParent<Transform>().position;
                             var random = Random.Range(0, 5);
@@ -83,6 +84,18 @@ public class Hammer : MonoBehaviour
                                 2 => new Item { ıtemTypes = Item.ItemTypes.ElectricTape },
                                 3 => new Item { ıtemTypes = Item.ItemTypes.MetalPlate },
                                 4 => new Item { ıtemTypes = Item.ItemTypes.TeflonTape },
+                                _ => throw new ArgumentOutOfRangeException()
+                            };
+                            ItemWorld.SpawnItemWorld(new Vector3(parentVector.x, parentVector.y, 1.5f), ıtem);
+                        }*/
+                        else
+                        {
+                            var parentVector = obj.transform.GetComponentInParent<Transform>().position;
+                            var random = Random.Range(0, 2);
+                            var ıtem = random switch
+                            {
+                                0 => new Item { ıtemTypes = Item.ItemTypes.MetalPlate },
+                                1 => new Item { ıtemTypes = Item.ItemTypes.TeflonTape },
                                 _ => throw new ArgumentOutOfRangeException()
                             };
                             ItemWorld.SpawnItemWorld(new Vector3(parentVector.x, parentVector.y, 1.5f), ıtem);

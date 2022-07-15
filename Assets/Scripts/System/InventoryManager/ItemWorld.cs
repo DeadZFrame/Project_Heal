@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class ItemWorld : MonoBehaviour
@@ -78,9 +79,10 @@ public class ItemWorld : MonoBehaviour
             foreach (var uı in _repairManager.ımages)
             {
                 if (!uı.name.Equals(gameObject.name)) continue;
-                //Destroy(uı.transform.parent.gameObject);
                 _repairManager.ımages.Remove(uı);
-                Destroy(uı.gameObject);
+                if(SceneManager.GetActiveScene().buildIndex == (int)LevelManager.SceneIndex.Tutorial)
+                    Destroy(uı.transform.parent.gameObject);
+                uı.gameObject.SetActive(false);
                 DestroySelf();
             }
         }

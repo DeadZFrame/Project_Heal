@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
 
     private LevelManager _levelManager;
 
+    public GameObject missionComplete, gameOver;
+
     private void Awake()
     {
         _levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
@@ -26,7 +28,7 @@ public class UIManager : MonoBehaviour
         
         if (SceneManager.GetActiveScene().buildIndex is not (int)LevelManager.SceneIndex.MainMenu and not (int)LevelManager.SceneIndex.CutScene && _resetSaveGame)
         {
-            _levelManager.player.level = (int)LevelManager.SceneIndex.MainMenu;
+            //_levelManager.player.level = (int)LevelManager.SceneIndex.MainMenu;
             _resetSaveGame = false;
         }
         
@@ -44,6 +46,14 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0f;
         }
         else if (_levelManager.mailBoxUI.activeInHierarchy)
+        {
+            Time.timeScale = 0f;
+        }
+        else if(gameOver.activeInHierarchy)
+        {
+            Time.timeScale = 0f;
+        }
+        else if(missionComplete.activeInHierarchy)
         {
             Time.timeScale = 0f;
         }
@@ -89,7 +99,7 @@ public class UIManager : MonoBehaviour
 
     public void LoadLevel01()
     {
-        if (_levelManager.player.level != (int)LevelManager.SceneIndex.Level01) return;
+        if (_levelManager.level != (int)LevelManager.SceneIndex.Level01) return;
         _levelManager.sceneIndex = (int)LevelManager.SceneIndex.Level01;
         _levelManager.selectedScene = true;
         _levelManager.levelMenu.SetActive(false);

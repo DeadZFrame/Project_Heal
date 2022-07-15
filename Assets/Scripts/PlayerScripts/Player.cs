@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -15,24 +14,39 @@ public class Player : MonoBehaviour
 
     public Inventory ınventory;
 
-    [NonSerialized] public int level = (int)LevelManager.SceneIndex.MainMenu;
-    
     private void Awake()
     {
+        //DontDestroyOnLoad(this.gameObject);
         ınventory = new Inventory();
         _playerBase = gameObject.GetComponent<PlayerBase>();
         if(GameObject.FindGameObjectWithTag("EnvObjects") != null)
             _rigidbodyManager = GameObject.FindGameObjectWithTag("EnvObjects").GetComponent<RigidbodyManager>();
         _cameraBase = GameObject.Find("Main Camera").GetComponent<CameraBase>();
         _levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+        _uıManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        _timer = _uıManager.GetComponent<Timer>();
     }
 
     private void Start()
     {
+        if (PlayerPrefs.HasKey("Level"))
+        {
+            _levelManager.level = LevelManager.Load("Level");
+        }
         ınventoryUI.SetInventory(ınventory);
         _materialList = new List<Material>();
 
         _repairBar = _playerBase.repairBar.GetComponent<RepairBar>();
+    }
+
+    private void Update()
+    {
+        if (_timer.timeIsRunning && _repairBar.repaired)
+        {
+            _levelManager.starsForThisLevel += 1;
+            starsManager.ChangeSprite();
+            _timer.timeIsRunning = false;
+        }
     }
 
     private void FixedUpdate()
@@ -42,21 +56,11 @@ public class Player : MonoBehaviour
 
     private RepairBar _repairBar;
     public StarsManager starsManager;
-    private void Update()
-    {
-        if (_repairBar.repaired)
-        {
-            _levelManager.starsForThisLevel += 1;
-            _repairBar.repaired = false;
-            _repairBar.repairBar.value = 0f;
-            starsManager.ChangeSprite();
-            level += 1;
-            if (SceneManager.GetActiveScene().buildIndex == (int)LevelManager.SceneIndex.Tutorial)
-            {
-                SceneManager.LoadScene((int)LevelManager.SceneIndex.Level01);
-            }
-        }
-    }
+    private UIManager _uıManager;
+
+    public Transform starTransform;
+
+    private Timer _timer;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -69,6 +73,28 @@ public class Player : MonoBehaviour
                     _playerBase.grounded = true;
                     var colID = collision.transform;
                     _cameraBase.floor = colID;
+                    switch (colID.name)
+                    {
+                        case "Bottom" when _timer.time > 0 && !_repairBar.repaired:
+                            _timer.timeIsRunning = true;
+                            break;
+                        case "Outdoor" when _repairBar.repaired:
+                        {
+                            if(_timer.time >= _timer.time/2)
+                                _levelManager.starsForThisLevel += 1;
+                            _repairBar.repaired = false;
+                            _repairBar.repairBar.value = 0f;
+                            starsManager.ChangeSprite();
+                            _levelManager.level = (int)LevelManager.SceneIndex.Level01;
+                            LevelManager.Save("Level", _levelManager.level);
+                            var star = starsManager.stars[0].transform.parent.gameObject;
+                            star.transform.parent = starTransform.parent;
+                            //UnityEditor.GameObjectUtility.SetParentAndAlign(star, starTransform.gameObject);
+                            star.GetComponent<RectTransform>().position = starTransform.GetComponent<RectTransform>().position + new Vector3(-70, 50);
+                            _uıManager.missionComplete.SetActive(true);
+                            break;
+                        }
+                    }
                     break;
                 }
                 /*case "EnvObjects":
@@ -100,6 +126,7 @@ public class Player : MonoBehaviour
                 }*/
                 case "Wall":
                     _rigidbodyManager.objects = collision.transform.GetComponents<Rigidbody>();
+                    _playerBase.grounded = true;
                     foreach (var obj in _rigidbodyManager.objects)
                     {
                         obj.constraints = RigidbodyConstraints.None;
@@ -146,8 +173,7 @@ public class Player : MonoBehaviour
                 other.gameObject.SetActive(false);
                 starsManager.ChangeSprite();
                 break;
-            
-    
+
             case "Item":
                 var ıtemWorld = other.GetComponent<ItemWorld>();
                 var ıtemMagnet = other.gameObject.GetComponent<ItemMagnet>();

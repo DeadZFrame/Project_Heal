@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StarsManager : MonoBehaviour
 {
-    private Image[] _stars;
+    [NonSerialized]public Image[] stars;
     public Sprite starSprite;
     
     private LevelManager _levelManager;
@@ -11,11 +12,11 @@ public class StarsManager : MonoBehaviour
     private void Awake()
     {
         _levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
-        _stars = gameObject.GetComponentsInChildren<Image>();
+        stars = gameObject.GetComponentsInChildren<Image>();
     }
 
     public void ChangeSprite()
     {
-        _stars[_levelManager.starsForThisLevel - 1].sprite = starSprite;
+        stars[_levelManager.starsForThisLevel - 1].sprite = starSprite;
     }
 }

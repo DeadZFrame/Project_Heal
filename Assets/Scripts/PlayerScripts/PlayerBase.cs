@@ -143,6 +143,7 @@ public class PlayerBase : MonoBehaviour
         var hitObj = Physics.OverlapSphere(hammerPos, hammer.attackRange, hammer.hitObj);
         foreach (var obj in hitObj)
         {
+            SFX_Manager.instance.PlayArray("Hit");
             obj.GetComponent<Rigidbody>().AddForce(obj.transform.position - transform.position * hammer.force, ForceMode.Impulse);
         }
 
@@ -151,6 +152,7 @@ public class PlayerBase : MonoBehaviour
         var brokeObj = Physics.OverlapSphere(hammerPos, hammer.attackRange, hammer.brokenObj);
         foreach (var obj in brokeObj)
         {
+            SFX_Manager.instance.PlayArray("Hit");
             repairBar.SetActive(true);
             _bar = repairBar;
             brokeObjects = obj;
