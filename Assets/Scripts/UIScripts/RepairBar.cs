@@ -30,6 +30,7 @@ public class RepairBar : MonoBehaviour
         }
         else
         {
+            repairBar.gameObject.SetActive(false);
             repaired = true;
         }
         if(_playerBase.brokeObjects == null) return;

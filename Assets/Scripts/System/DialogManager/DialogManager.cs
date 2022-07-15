@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DialogManager : MonoBehaviour
 {
-    public List<string> dialogue; 
+    public string[] dialogue; 
     public List<string> tutorial;
     public TextMeshProUGUI dialogueUI;
 

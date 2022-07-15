@@ -60,6 +60,7 @@ public class TutorialManager : MonoBehaviour
     public Transform tv, radio;
     private Vector3 _pos;
     private int _ındex = 0;
+    private bool _ısWrited, _ısWrited2;
     private void Track()
     {
         if (SceneManager.GetActiveScene().buildIndex == (int)LevelManager.SceneIndex.Garage)
@@ -107,6 +108,7 @@ public class TutorialManager : MonoBehaviour
                 else if(_ındex > 2)
                 {
                     tutorialUI.gameObject.SetActive(false);
+                    _ındex = 0;
                 }
                 else
                 {
@@ -115,7 +117,7 @@ public class TutorialManager : MonoBehaviour
                 _levelManager.pressedF = false;
             }
 
-            if (_levelManager.player.ınventory.GetItemList().Count > 0)
+            if (_levelManager.player.ınventory.GetItemList().Count > 0 && !_ısWrited)
             {
                 foreach (var dialogue in dialogues)
                 {
@@ -124,7 +126,30 @@ public class TutorialManager : MonoBehaviour
                     break;
                 }
 
+                _ısWrited = true;
                 _pos = tv.position;
+            }
+            else if(_ısWrited && Input.GetKeyDown(KeyCode.Alpha1) && !_ısWrited2)
+            {
+                foreach (var dialogue in dialogues)
+                {
+                    TextWriter.WriteText_Static(tutorialText, dialogue, .03f, true);
+                    dialogues.Remove(dialogue);
+                    break;
+                }
+
+                _ısWrited2 = true;
+            }
+
+            if (_levelManager.player.repairBar.repaired)
+            {
+                foreach (var dialogue in dialogues)
+                {
+                    TextWriter.WriteText_Static(tutorialText, dialogue, .03f, true);
+                    dialogues.Remove(dialogue);
+                    break;
+                }
+                tutorialUI.gameObject.SetActive(false);
             }
         }
     }

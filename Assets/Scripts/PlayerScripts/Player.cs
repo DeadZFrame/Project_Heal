@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
@@ -32,12 +33,12 @@ public class Player : MonoBehaviour
         ınventoryUI.SetInventory(ınventory);
         _materialList = new List<Material>();
 
-        _repairBar = _playerBase.repairBar.GetComponent<RepairBar>();
+        repairBar = _playerBase.repairBar.GetComponent<RepairBar>();
     }
 
     private void Update()
     {
-        if (_timer.timeIsRunning && _repairBar.repaired)
+        if (_timer.timeIsRunning && repairBar.repaired)
         {
             _levelManager.starsForThisLevel += 1;
             starsManager.ChangeSprite();
@@ -50,7 +51,7 @@ public class Player : MonoBehaviour
         XRay();
     }
 
-    private RepairBar _repairBar;
+    [NonSerialized] public RepairBar repairBar;
     public StarsManager starsManager;
     private UIManager _uıManager;
 
@@ -71,15 +72,15 @@ public class Player : MonoBehaviour
                     _cameraBase.floor = colID;
                     switch (colID.name)
                     {
-                        case "Bottom" when _timer.time > 0 && !_repairBar.repaired:
+                        case "Bottom" when _timer.time > 0 && !repairBar.repaired:
                             _timer.timeIsRunning = true;
                             break;
-                        case "Outdoor" when _repairBar.repaired:
+                        case "Outdoor" when repairBar.repaired:
                         {
                             if(_timer.time >= _timer.time/2)
                                 _levelManager.starsForThisLevel += 1;
-                            _repairBar.repaired = false;
-                            _repairBar.repairBar.value = 0f;
+                            repairBar.repaired = false;
+                            repairBar.repairBar.value = 0f;
                             starsManager.ChangeSprite();
                             _levelManager.level = (int)LevelManager.SceneIndex.Level01;
                             LevelManager.Save("Level", _levelManager.level);

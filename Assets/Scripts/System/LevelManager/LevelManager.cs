@@ -29,8 +29,7 @@ public class LevelManager : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             _dialogManager = GameObject.Find("DialogManager").GetComponent<DialogManager>();
             _repairManager = GameObject.Find("RepairManager").GetComponent<RepairManager>();
-            if(_tutorialManager != null)
-                _tutorialManager = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
+            _tutorialManager = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
         }
     }
 

@@ -56,14 +56,14 @@ public class Hammer : MonoBehaviour
                 }
                 else if(!broke && SceneManager.GetActiveScene().buildIndex == (int)LevelManager.SceneIndex.Level01)
                 {
-                    if (!obj.transform.parent.name.Equals("Crate"))
+                    if (!obj.transform.parent.name.Equals("Crate") && !obj.transform.parent.name.Equals("Wall"))
                     {
                         if (obj.transform.name.Equals("Bowl"))
                         {
                             var vector = obj.transform.position;
                             ItemWorld.SpawnItemWorld(new Vector3(vector.x, vector.y, 1.5f), new Item{ıtemTypes = Item.ItemTypes.TeflonTape});
                         }
-                        else if(obj.transform.parent.name.Equals("ChairSpawn"))
+                        else if(obj.transform.parent.name.Equals("MakeUpLight"))
                         {
                             var parentVector = obj.transform.GetComponentInParent<Transform>().position;
                             ItemWorld.SpawnItemWorld(new Vector3(parentVector.x, parentVector.y, 1.5f), new Item{ıtemTypes = Item.ItemTypes.Cable});
