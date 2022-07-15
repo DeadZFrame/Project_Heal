@@ -571,8 +571,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
+      propertyPath: dialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: tutorial.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
       propertyPath: dialogue.Array.data[0]
       value: '- Repair the <b>TV'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: dialogue.Array.data[1]
+      value: Check the <b>mailbox</b>
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: dialogue.Array.data[2]
+      value: Check the <b>mailbox</b>
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: tutorial.Array.data[0]
+      value: Check the <b>mailbox</b>
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: tutorial.Array.data[1]
+      value: <b>Interact</b> with the <b>TV</b> and see </b>what's missing</b>
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: tutorial.Array.data[2]
+      value: <b>BREAK THE RADIO!
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087402783441568685, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: tutorial.Array.data[3]
+      value: <b>Select</b> item and <b>throw</b> to the <b>TV
       objectReference: {fileID: 0}
     - target: {fileID: 6325433210951590497, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
@@ -638,6 +678,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mission1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213893483927049097, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.429016
       objectReference: {fileID: 0}
     - target: {fileID: 7640573661666660592, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
@@ -746,6 +791,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9122991075202405279, guid: 9798b5f187a49dd4391e4d830f60e3b2,
         type: 3}
+      propertyPath: tv
+      value: 
+      objectReference: {fileID: 5548811381606462796}
+    - target: {fileID: 9122991075202405279, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
+      propertyPath: radio
+      value: 
+      objectReference: {fileID: 4721058104122427723}
+    - target: {fileID: 9122991075202405279, guid: 9798b5f187a49dd4391e4d830f60e3b2,
+        type: 3}
       propertyPath: tutorialUI
       value: 
       objectReference: {fileID: 229031642}
@@ -803,6 +858,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293a649408ae1e6499bca64008a55198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &564809079
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1547752620081805088, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_Name
+      value: SFX Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547752620081805094, guid: 71a2a4879825e3e4f8939ba74b24e0b7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 71a2a4879825e3e4f8939ba74b24e0b7, type: 3}
 --- !u!114 &660987626 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8261225261378001877, guid: 9798b5f187a49dd4391e4d830f60e3b2,
@@ -5002,7 +5126,7 @@ GameObject:
   - component: {fileID: 3120099474196213817}
   - component: {fileID: 5295408776695803989}
   - component: {fileID: 8879371118355241972}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Couch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

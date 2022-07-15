@@ -68,6 +68,7 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene((int)LevelManager.SceneIndex.CutScene);
         _resetSaveGame = true;
+        _levelManager.level = 0;
     }
     
     public void RestartLevel()

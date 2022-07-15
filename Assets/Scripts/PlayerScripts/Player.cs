@@ -29,10 +29,6 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey("Level"))
-        {
-            _levelManager.level = LevelManager.Load("Level");
-        }
         ınventoryUI.SetInventory(ınventory);
         _materialList = new List<Material>();
 

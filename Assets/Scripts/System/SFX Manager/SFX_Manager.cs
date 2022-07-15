@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,7 +29,7 @@ public class SFX_Manager : MonoBehaviour
             s.audioSource.volume = s.volume;
         }
 
-        _audioSource = gameObject.GetComponent<AudioSource>();
+        _audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     public void Play(string name)
@@ -60,8 +61,7 @@ public class SFX_Manager : MonoBehaviour
     }
 
     private AudioSource _audioSource;
-    
-    private int _index = 0;
+
     public void PlayArray(string name)
     {
         if (!soundMuted)

@@ -12,21 +12,37 @@ public class LevelManager : MonoBehaviour
 
     public GameObject levelMenu;
 
+    private TutorialManager _tutorialManager;
+
     private Vector3 _interactOffset;
     
     [NonSerialized] public int level;
 
     private void Awake()
     {
+        if (PlayerPrefs.HasKey("Level"))
+        {
+            level = Load("Level");
+        }
         if (SceneManager.GetActiveScene().buildIndex is not (int)SceneIndex.MainMenu and not (int)SceneIndex.CutScene)
         {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             _dialogManager = GameObject.Find("DialogManager").GetComponent<DialogManager>();
             _repairManager = GameObject.Find("RepairManager").GetComponent<RepairManager>();
+            if(_tutorialManager != null)
+                _tutorialManager = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
         }
-        //PlayerPrefs.DeleteAll();
     }
-    
+
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("Level"))
+        {
+            level = Load("Level");
+        }
+        ManageLevels();
+    }
+
     public enum SceneIndex
     {
         MainMenu, CutScene, Garage, Tutorial, Level01
@@ -62,7 +78,6 @@ public class LevelManager : MonoBehaviour
             MailBox();
             ManageStars();
         }
-        ManageLevels();
     }
     
     public static void Save(string keyName,int level)
@@ -76,20 +91,20 @@ public class LevelManager : MonoBehaviour
         return PlayerPrefs.GetInt(keyName);
     }
 
-    public Button continueOnMainMenu, level01Menu;
+    public GameObject continueOnMainMenu, level01Menu;
     public Sprite enabledSprite, disabledSprite;
     
     private void ManageLevels()
     {
         if (level > 0)
         {
-            continueOnMainMenu.interactable = true;
-            level01Menu.gameObject.GetComponent<Image>().sprite = enabledSprite;
+            continueOnMainMenu.GetComponent<Button>().interactable = true;
+            level01Menu.GetComponent<Image>().sprite = enabledSprite;
         }
         else
         {
-            continueOnMainMenu.interactable = false;
-            level01Menu.gameObject.GetComponent<Image>().sprite = disabledSprite;
+            continueOnMainMenu.GetComponent<Button>().interactable = false;
+            level01Menu.GetComponent<Image>().sprite = disabledSprite;
         }
     }
     
@@ -107,6 +122,8 @@ public class LevelManager : MonoBehaviour
         
     private RepairManager _repairManager;
     private DialogManager _dialogManager;
+
+    [NonSerialized]public bool pressedF;
     
     private void MailBox()
     {
@@ -116,6 +133,7 @@ public class LevelManager : MonoBehaviour
             interact.gameObject.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F))
             {
+                pressedF = true;
                 //Open MailBox menu and set Time.scale to zero
                 mailBoxUI.SetActive(true);
                 if (mail.Length != 0)
@@ -152,12 +170,18 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
-    
+
+    private bool _ısWrited = false;
     private void BigRedButton()
     {
         var distance = Vector3.Distance(player.transform.position, redButton.position);
         if (distance < 4f && selectedScene)
         {
+            if (!_ısWrited && level == 0)
+            {
+                TextWriter.WriteText_Static(_tutorialManager.tutorialText, _dialogManager.dialogue[2], .03f, true);
+                _ısWrited = true;
+            }
             interact.gameObject.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F))
             {
