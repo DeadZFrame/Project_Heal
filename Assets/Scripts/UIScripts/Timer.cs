@@ -42,7 +42,7 @@ public class Timer : MonoBehaviour
     {
         if (timeIsRunning)
         {
-            if (time > 0)
+            if (time > 0.1f)
             {
                 time -= Time.deltaTime;
                 DisplayTime(time);
@@ -50,7 +50,7 @@ public class Timer : MonoBehaviour
             else
             {
                 Debug.Log("Time has run out!");
-                time = 0;
+                time = 0.05f;
                 timeIsRunning = false;
                 _uıManager.gameOver.SetActive(true);
             }
