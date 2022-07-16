@@ -76,6 +76,10 @@ public class LevelManager : MonoBehaviour
         {
             MailBox();
             ManageStars();
+            if (player.repairBar.repaired)
+            {
+                mail[0].transform.parent.parent.gameObject.SetActive(false);
+            }
         }
     }
     
