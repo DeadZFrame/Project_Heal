@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 156484401}
   - component: {fileID: 156484402}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Radio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1857,7 +1857,7 @@ GameObject:
   - component: {fileID: 8423981300182215305}
   - component: {fileID: 9119159069728925315}
   - component: {fileID: 9119159069728925314}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Radio06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3466,7 +3466,7 @@ GameObject:
   - component: {fileID: 450852626528485465}
   - component: {fileID: 5567288931892611412}
   - component: {fileID: 5567288931892611411}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Radio05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3604,7 +3604,7 @@ GameObject:
   - component: {fileID: 7290036828118706931}
   - component: {fileID: 9060998396117346094}
   - component: {fileID: 9060998396117346093}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Radio08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3955,7 +3955,7 @@ GameObject:
   - component: {fileID: 5105871460514823818}
   - component: {fileID: 7943473253722768461}
   - component: {fileID: 7943473253722768460}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Radio04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4084,7 +4084,7 @@ GameObject:
   - component: {fileID: 7331813484802502506}
   - component: {fileID: 7553183934612135327}
   - component: {fileID: 7553183934612135326}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Radio02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4812,7 +4812,7 @@ GameObject:
   - component: {fileID: 7966682438706340701}
   - component: {fileID: 8132935667744942494}
   - component: {fileID: 8132935667744942493}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Radio01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5168,7 +5168,7 @@ GameObject:
   - component: {fileID: 4068364845094319413}
   - component: {fileID: 8652523269374342556}
   - component: {fileID: 8652523269374342555}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Radio07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5517,7 +5517,7 @@ GameObject:
   - component: {fileID: 4027154249585369303}
   - component: {fileID: 9145230485104157179}
   - component: {fileID: 9145230485104157178}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Radio03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

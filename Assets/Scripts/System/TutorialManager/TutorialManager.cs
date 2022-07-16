@@ -60,7 +60,7 @@ public class TutorialManager : MonoBehaviour
     public Transform tv, radio;
     private Vector3 _pos;
     private int _ındex = 0;
-    private bool _ısWrited, _ısWrited2;
+    private bool _ısWrited, _ısWrited2, _ısWrited3;
     private void Track()
     {
         if (SceneManager.GetActiveScene().buildIndex == (int)LevelManager.SceneIndex.Garage)
@@ -84,9 +84,11 @@ public class TutorialManager : MonoBehaviour
             var distance = Vector3.Distance(_levelManager.player.transform.position, tv.transform.position);
             if (distance < 4f)
             {
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.F)  && !_ısWrited3)
                 {
                     _levelManager.pressedF = true;
+                    radio.gameObject.layer = LayerMask.NameToLayer("BreakableObj");
+                    _ısWrited3 = true;
                 }
             }
             tutorialUI.position = Camera.main.WorldToScreenPoint(_pos);
@@ -112,7 +114,7 @@ public class TutorialManager : MonoBehaviour
                 }
                 else
                 {
-                    _pos = tv.position;   
+                    _pos = tv.position;
                 }
                 _levelManager.pressedF = false;
             }
